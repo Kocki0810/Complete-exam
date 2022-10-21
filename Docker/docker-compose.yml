@@ -1,0 +1,29 @@
+version: '3.4'
+services:
+  exam-sql:
+    image: mysql:latest
+    environment:
+      MYSQL_DATABASE: 'Terminal'
+      MYSQL_ROOT_PASSWORD: 'admin'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+  exam-website:
+    build: ../exam-website
+    ports:
+      - "8080:8080"
+  exam-api:
+    image: docker.io/bitnami/laravel:9
+    ports:
+      - '8000:8000'
+    environment:
+      - DB_HOST=exam-sql
+      - DB_PORT=3306
+      - DB_USERNAME=root
+      - DB_DATABASE=Terminal
+      - DB_PASSWORD=admin
+    volumes:
+      - '../exam-api:/app'
+    depends_on:
+      - exam-sql
