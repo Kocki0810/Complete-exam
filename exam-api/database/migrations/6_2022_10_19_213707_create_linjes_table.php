@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('linjer', function (Blueprint $table) {
-            $table->increments('linje_id');
+            $table->increments('id');
             $table->integer('produkt_id')->nullable()->unsigned();
             $table->integer('ordre_id')->unsigned();
             $table->string('bontekst', 255);

@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('ordre', function (Blueprint $table) {
-            $table->increments('ordre_id')->unsinged();
+            $table->increments('id')->unsinged();
             $table->integer('firma_id')->unsigned();
             $table->integer('ekspedient_id')->nullable()->unsigned();
             $table->integer('pris');

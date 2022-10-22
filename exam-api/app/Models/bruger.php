@@ -13,11 +13,11 @@ class bruger extends Model
     
     public function firma()
     {
-        $this->hasOne(firma::class);
+        return $this->hasOne(firma::class);
     }
     public function ekspedient()
     {
-        $this->hasOne(ekspedient::class);
+        return $this->hasOne(ekspedient::class);
     }
     
 }

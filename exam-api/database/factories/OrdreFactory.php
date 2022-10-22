@@ -19,8 +19,8 @@ class OrdreFactory extends Factory
      */
     public function definition()
     {
-        $firma_id = $this->faker->randomElement(firma::pluck('firma_id'));
-        $ekspedient_id = $this->faker->randomElement(ekspedient::pluck('ekspedient_id'));
+        $firma_id = $this->faker->randomElement(firma::pluck('id'));
+        $ekspedient_id = $this->faker->randomElement(ekspedient::pluck('id'));
 
         return [
             'firma_id' => $firma_id,
@@ -31,3 +31,17 @@ class OrdreFactory extends Factory
         ];
     }
 }
+
+
+
+// //Laravel 5.0
+// DB::table('ekspedient')->where('ekspedient_id', '1')->pluck('navn'); // string("john");
+// //Laravel 5.1 
+// DB::table('ekspedient')->where('ekspedient_id', '1')->pluck('navn'); // string("john"); NOTICE method pluck has been deprecated
+// DB::table('ekspedient')->where('ekspedient_id', '1')->value('navn'); // string("john");
+// //Laravel 5.2
+// DB::table('ekspedient')->where('ekspedient_id', '1')->pluck('navn'); // array(1) {[0] => string("john")};
+// DB::table('ekspedient')->where('ekspedient_id', '1')->pluck('navn')->first(); // string("john");
+// DB::table('ekspedient')->where('ekspedient_id', '1')->value('navn'); // string("john");
+
+

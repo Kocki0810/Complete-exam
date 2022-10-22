@@ -19,7 +19,7 @@ class ProduktFactory extends Factory
     {
         $faker = \Faker\Factory::create();
         $this->faker->addProvider(new \FakerRestaurant\Provider\en_US\Restaurant($faker));
-        $produktgruppeID = $this->faker->randomElement(produktgruppe::pluck('produktgruppe_id'));
+        $produktgruppeID = $this->faker->randomElement(produktgruppe::pluck('id'));
         
         return [
             // 'gruppeID' => $this->faker->randomElement(produktgruppe::pluck('gruppeID')),

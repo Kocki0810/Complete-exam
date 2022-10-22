@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Requests\StorelinjeRequest;
-use App\Http\Requests\UpdatelinjeRequest;
-use App\Models\linje;
+use App\Http\Requests\StorefirmaRequest;
+use App\Http\Requests\UpdatefirmaRequest;
+use App\Models\firma;
+use App\Http\Controllers\Controller;
 
-class LinjeController extends Controller
+class FirmaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +16,7 @@ class LinjeController extends Controller
      */
     public function index()
     {
-        //
+        return firma::all();   
     }
 
     /**
@@ -31,10 +32,10 @@ class LinjeController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StorelinjeRequest  $request
+     * @param  \App\Http\Requests\StorefirmaRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StorelinjeRequest $request)
+    public function store(StorefirmaRequest $request)
     {
         //
     }
@@ -42,10 +43,10 @@ class LinjeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\linje  $linje
+     * @param  \App\Models\firma  $firma
      * @return \Illuminate\Http\Response
      */
-    public function show(linje $linje)
+    public function show(firma $firma)
     {
         //
     }
@@ -53,10 +54,10 @@ class LinjeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\linje  $linje
+     * @param  \App\Models\firma  $firma
      * @return \Illuminate\Http\Response
      */
-    public function edit(linje $linje)
+    public function edit(firma $firma)
     {
         //
     }
@@ -64,11 +65,11 @@ class LinjeController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdatelinjeRequest  $request
-     * @param  \App\Models\linje  $linje
+     * @param  \App\Http\Requests\UpdatefirmaRequest  $request
+     * @param  \App\Models\firma  $firma
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatelinjeRequest $request, linje $linje)
+    public function update(UpdatefirmaRequest $request, firma $firma)
     {
         //
     }
@@ -76,10 +77,10 @@ class LinjeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\linje  $linje
+     * @param  \App\Models\firma  $firma
      * @return \Illuminate\Http\Response
      */
-    public function destroy(linje $linje)
+    public function destroy(firma $firma)
     {
         //
     }

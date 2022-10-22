@@ -20,13 +20,13 @@ class LinjeFactory extends Factory
      */
     public function definition()
     {
-        $produktID = $this->faker->randomElement(produkt::pluck('produkt_id'));
+        $produktID = $this->faker->randomElement(produkt::pluck('id'));
         
 
         return [
             'produkt_id' => $produktID,
             // 'ordreID' => $this->faker->randomElement(ordre::pluck('ordreID')),
-            'bontekst' => DB::table('produkter')->where('produkt_id', $produktID)->value('navn'),
+            'bontekst' => DB::table('produkter')->where('id', $produktID)->value('navn'),
             'pris' => $this->faker->numberBetween('10', '1000'),
             'antal' => $this->faker->numberBetween('1', '10'),
             'date' => $this->faker->dateTimeThisDecade(),

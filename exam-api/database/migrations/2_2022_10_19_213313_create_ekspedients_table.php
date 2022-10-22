@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('ekspedienter', function (Blueprint $table) {
-            $table->increments('ekspedient_id')->unsigned();
+            $table->increments('id')->unsigned();
             $table->integer('firma_id')->unsigned();
             $table->integer('kortnummer')->unsigned();
             $table->string('navn', 255)->nullable();

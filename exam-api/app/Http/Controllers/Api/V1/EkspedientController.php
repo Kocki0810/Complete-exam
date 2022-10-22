@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Requests\StoreproduktRequest;
-use App\Http\Requests\UpdateproduktRequest;
-use App\Models\produkt;
+use App\Http\Requests\StoreekspedientRequest;
+use App\Http\Requests\UpdateekspedientRequest;
+use App\Models\ekspedient;
+use App\Http\Controllers\Controller;
 
-class ProduktController extends Controller
+
+class EkspedientController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +17,8 @@ class ProduktController extends Controller
      */
     public function index()
     {
-        //
+        return ekspedient::all();
+        
     }
 
     /**
@@ -31,10 +34,10 @@ class ProduktController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreproduktRequest  $request
+     * @param  \App\Http\Requests\StoreekspedientRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreproduktRequest $request)
+    public function store(StoreekspedientRequest $request)
     {
         //
     }
@@ -42,10 +45,10 @@ class ProduktController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\produkt  $produkt
+     * @param  \App\Models\ekspedient  $ekspedient
      * @return \Illuminate\Http\Response
      */
-    public function show(produkt $produkt)
+    public function show(ekspedient $ekspedient)
     {
         //
     }
@@ -53,10 +56,10 @@ class ProduktController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\produkt  $produkt
+     * @param  \App\Models\ekspedient  $ekspedient
      * @return \Illuminate\Http\Response
      */
-    public function edit(produkt $produkt)
+    public function edit(ekspedient $ekspedient)
     {
         //
     }
@@ -64,11 +67,11 @@ class ProduktController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateproduktRequest  $request
-     * @param  \App\Models\produkt  $produkt
+     * @param  \App\Http\Requests\UpdateekspedientRequest  $request
+     * @param  \App\Models\ekspedient  $ekspedient
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateproduktRequest $request, produkt $produkt)
+    public function update(UpdateekspedientRequest $request, ekspedient $ekspedient)
     {
         //
     }
@@ -76,10 +79,10 @@ class ProduktController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\produkt  $produkt
+     * @param  \App\Models\ekspedient  $ekspedient
      * @return \Illuminate\Http\Response
      */
-    public function destroy(produkt $produkt)
+    public function destroy(ekspedient $ekspedient)
     {
         //
     }

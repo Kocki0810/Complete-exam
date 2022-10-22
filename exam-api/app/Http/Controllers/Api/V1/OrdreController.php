@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Requests\StorebrugerRequest;
-use App\Http\Requests\UpdatebrugerRequest;
-use App\Models\bruger;
+use App\Http\Requests\StoreordreRequest;
+use App\Http\Requests\UpdateordreRequest;
+use App\Models\ordre;
+use App\Http\Controllers\Controller;
 
-class BrugerController extends Controller
+class OrdreController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +16,7 @@ class BrugerController extends Controller
      */
     public function index()
     {
-        //
+        return ordre::all();
     }
 
     /**
@@ -31,10 +32,10 @@ class BrugerController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StorebrugerRequest  $request
+     * @param  \App\Http\Requests\StoreordreRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StorebrugerRequest $request)
+    public function store(StoreordreRequest $request)
     {
         //
     }
@@ -42,10 +43,10 @@ class BrugerController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\bruger  $bruger
+     * @param  \App\Models\ordre  $ordre
      * @return \Illuminate\Http\Response
      */
-    public function show(bruger $bruger)
+    public function show(ordre $ordre)
     {
         //
     }
@@ -53,10 +54,10 @@ class BrugerController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\bruger  $bruger
+     * @param  \App\Models\ordre  $ordre
      * @return \Illuminate\Http\Response
      */
-    public function edit(bruger $bruger)
+    public function edit(ordre $ordre)
     {
         //
     }
@@ -64,11 +65,11 @@ class BrugerController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdatebrugerRequest  $request
-     * @param  \App\Models\bruger  $bruger
+     * @param  \App\Http\Requests\UpdateordreRequest  $request
+     * @param  \App\Models\ordre  $ordre
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatebrugerRequest $request, bruger $bruger)
+    public function update(UpdateordreRequest $request, ordre $ordre)
     {
         //
     }
@@ -76,10 +77,10 @@ class BrugerController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\bruger  $bruger
+     * @param  \App\Models\ordre  $ordre
      * @return \Illuminate\Http\Response
      */
-    public function destroy(bruger $bruger)
+    public function destroy(ordre $ordre)
     {
         //
     }

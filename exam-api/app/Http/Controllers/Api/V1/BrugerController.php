@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Requests\StoreekspedientRequest;
-use App\Http\Requests\UpdateekspedientRequest;
-use App\Models\ekspedient;
+use App\Http\Requests\StorebrugerRequest;
+use App\Http\Requests\UpdatebrugerRequest;
+use App\Models\bruger;
+use App\Http\Resources\V1\BrugerResource;
+use App\Http\Controllers\Controller;
 
-class EkspedientController extends Controller
+class BrugerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +17,7 @@ class EkspedientController extends Controller
      */
     public function index()
     {
-        //
+        return bruger::all();
     }
 
     /**
@@ -31,10 +33,10 @@ class EkspedientController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreekspedientRequest  $request
+     * @param  \App\Http\Requests\StorebrugerRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreekspedientRequest $request)
+    public function store(StorebrugerRequest $request)
     {
         //
     }
@@ -42,21 +44,21 @@ class EkspedientController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\ekspedient  $ekspedient
+     * @param  \App\Models\bruger  $bruger
      * @return \Illuminate\Http\Response
      */
-    public function show(ekspedient $ekspedient)
+    public function show(bruger $bruger)
     {
-        //
+        return new BrugerResource($bruger);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\ekspedient  $ekspedient
+     * @param  \App\Models\bruger  $bruger
      * @return \Illuminate\Http\Response
      */
-    public function edit(ekspedient $ekspedient)
+    public function edit(bruger $bruger)
     {
         //
     }
@@ -64,11 +66,11 @@ class EkspedientController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateekspedientRequest  $request
-     * @param  \App\Models\ekspedient  $ekspedient
+     * @param  \App\Http\Requests\UpdatebrugerRequest  $request
+     * @param  \App\Models\bruger  $bruger
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateekspedientRequest $request, ekspedient $ekspedient)
+    public function update(UpdatebrugerRequest $request, bruger $bruger)
     {
         //
     }
@@ -76,10 +78,10 @@ class EkspedientController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\ekspedient  $ekspedient
+     * @param  \App\Models\bruger  $bruger
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ekspedient $ekspedient)
+    public function destroy(bruger $bruger)
     {
         //
     }

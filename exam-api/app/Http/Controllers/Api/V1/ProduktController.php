@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Requests\StoreordreRequest;
-use App\Http\Requests\UpdateordreRequest;
-use App\Models\ordre;
+use App\Http\Requests\StoreproduktRequest;
+use App\Http\Requests\UpdateproduktRequest;
+use App\Models\produkt;
+use App\Http\Controllers\Controller;
 
-class OrdreController extends Controller
+class ProduktController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +16,7 @@ class OrdreController extends Controller
      */
     public function index()
     {
-        //
+        return produkt::all();
     }
 
     /**
@@ -31,10 +32,10 @@ class OrdreController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreordreRequest  $request
+     * @param  \App\Http\Requests\StoreproduktRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreordreRequest $request)
+    public function store(StoreproduktRequest $request)
     {
         //
     }
@@ -42,10 +43,10 @@ class OrdreController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\ordre  $ordre
+     * @param  \App\Models\produkt  $produkt
      * @return \Illuminate\Http\Response
      */
-    public function show(ordre $ordre)
+    public function show(produkt $produkt)
     {
         //
     }
@@ -53,10 +54,10 @@ class OrdreController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\ordre  $ordre
+     * @param  \App\Models\produkt  $produkt
      * @return \Illuminate\Http\Response
      */
-    public function edit(ordre $ordre)
+    public function edit(produkt $produkt)
     {
         //
     }
@@ -64,11 +65,11 @@ class OrdreController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateordreRequest  $request
-     * @param  \App\Models\ordre  $ordre
+     * @param  \App\Http\Requests\UpdateproduktRequest  $request
+     * @param  \App\Models\produkt  $produkt
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateordreRequest $request, ordre $ordre)
+    public function update(UpdateproduktRequest $request, produkt $produkt)
     {
         //
     }
@@ -76,10 +77,10 @@ class OrdreController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\ordre  $ordre
+     * @param  \App\Models\produkt  $produkt
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ordre $ordre)
+    public function destroy(produkt $produkt)
     {
         //
     }

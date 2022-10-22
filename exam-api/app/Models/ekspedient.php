@@ -17,7 +17,7 @@ class ekspedient extends Model
     }
     public function bruger()
     {
-        $this->hasOne(bruger::class);
+        return $this->hasOne(bruger::class);
     }
     public function ordre() 
     {

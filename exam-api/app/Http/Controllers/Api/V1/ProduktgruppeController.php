@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Requests\StoreproduktgruppeRequest;
 use App\Http\Requests\UpdateproduktgruppeRequest;
 use App\Models\produktgruppe;
+use App\Http\Controllers\Controller;
 
 class ProduktgruppeController extends Controller
 {
@@ -15,7 +16,7 @@ class ProduktgruppeController extends Controller
      */
     public function index()
     {
-        //
+        return produktgruppe::all();
     }
 
     /**
