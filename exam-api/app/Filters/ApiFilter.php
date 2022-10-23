@@ -54,6 +54,10 @@ class ApiFilter {
             $query = $request->query();
             foreach($query as $param => $operators)
             {
+                if(!is_array($param))
+                {
+                    continue;
+                }
                 $column = $this->columnMap[$param] ?? $param;
                 foreach($operators as $operator => $value)
                 {
