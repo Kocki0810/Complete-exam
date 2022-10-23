@@ -6,6 +6,8 @@ use App\Http\Requests\StorelinjeRequest;
 use App\Http\Requests\UpdatelinjeRequest;
 use App\Models\linje;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\V1\LinjeResource;
+use App\Http\Resources\V1\LinjeCollection;
 
 class LinjeController extends Controller
 {
@@ -16,7 +18,7 @@ class LinjeController extends Controller
      */
     public function index()
     {
-        return linje::all();
+        return new linjeCollection(linje::paginate());
     }
 
     /**
@@ -48,7 +50,8 @@ class LinjeController extends Controller
      */
     public function show(linje $linje)
     {
-        //
+        return new LinjeResource($linje);
+        
     }
 
     /**

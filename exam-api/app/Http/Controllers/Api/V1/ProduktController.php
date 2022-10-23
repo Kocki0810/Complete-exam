@@ -6,6 +6,8 @@ use App\Http\Requests\StoreproduktRequest;
 use App\Http\Requests\UpdateproduktRequest;
 use App\Models\produkt;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\V1\ProduktResource;
+use App\Http\Resources\V1\ProduktCollection;
 
 class ProduktController extends Controller
 {
@@ -16,7 +18,7 @@ class ProduktController extends Controller
      */
     public function index()
     {
-        return produkt::all();
+        return new ProduktCollection(produkt::paginate());
     }
 
     /**
@@ -48,7 +50,7 @@ class ProduktController extends Controller
      */
     public function show(produkt $produkt)
     {
-        //
+        return new ProduktResource($produkt);
     }
 
     /**

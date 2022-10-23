@@ -20,11 +20,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], function()
 {
-    Route::apiResource('brugere', BrugerController::class);
-    Route::apiResource('ekspedienter', EkspedientController::class);
+    Route::apiResource('bruger', BrugerController::class);
+    Route::apiResource('ekspedient', EkspedientController::class);
     Route::apiResource('firma', FirmaController::class);
-    Route::apiResource('linjer', LinjeController::class);
+    Route::apiResource('linje', LinjeController::class);
     Route::apiResource('ordre', OrdreController::class);
-    Route::apiResource('produkter', ProdukterController::class);
-    Route::apiResource('produktgrupper', ProduktgrupperController::class);
+    Route::apiResource('produkt', ProduktController::class);
+    Route::apiResource('produktgruppe', ProduktgruppeController::class);
 });

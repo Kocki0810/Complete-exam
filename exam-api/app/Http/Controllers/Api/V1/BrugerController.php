@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use Illuminate\Http\Request;
 use App\Http\Requests\StorebrugerRequest;
 use App\Http\Requests\UpdatebrugerRequest;
 use App\Models\bruger;
 use App\Http\Resources\V1\BrugerResource;
+use App\Http\Resources\V1\BrugerCollection;
 use App\Http\Controllers\Controller;
+use App\Filters\V1\BrugerFilter;
 
 class BrugerController extends Controller
 {
@@ -15,9 +18,11 @@ class BrugerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return bruger::all();
+        $filter = new BrugerFilter();
+        $queryItems = $filter->transform($request);
+        return new BrugerCollection(bruger::where($queryItems)->paginate());
     }
 
     /**

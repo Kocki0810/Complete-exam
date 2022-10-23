@@ -6,6 +6,8 @@ use App\Http\Requests\StoreekspedientRequest;
 use App\Http\Requests\UpdateekspedientRequest;
 use App\Models\ekspedient;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\V1\EkspedientResource;
+use App\Http\Resources\V1\EkspedientCollection;
 
 
 class EkspedientController extends Controller
@@ -17,8 +19,7 @@ class EkspedientController extends Controller
      */
     public function index()
     {
-        return ekspedient::all();
-        
+        return new EkspedientCollection(ekspedient::paginate());
     }
 
     /**
@@ -50,7 +51,8 @@ class EkspedientController extends Controller
      */
     public function show(ekspedient $ekspedient)
     {
-        //
+        return new EkspedientResource($ekspedient);
+        
     }
 
     /**

@@ -6,6 +6,8 @@ use App\Http\Requests\StoreproduktgruppeRequest;
 use App\Http\Requests\UpdateproduktgruppeRequest;
 use App\Models\produktgruppe;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\V1\ProduktgruppeResource;
+use App\Http\Resources\V1\ProduktgruppeCollection;
 
 class ProduktgruppeController extends Controller
 {
@@ -16,7 +18,7 @@ class ProduktgruppeController extends Controller
      */
     public function index()
     {
-        return produktgruppe::all();
+        return new ProduktgruppeCollection(produktgruppe::paginate());
     }
 
     /**
@@ -48,7 +50,7 @@ class ProduktgruppeController extends Controller
      */
     public function show(produktgruppe $produktgruppe)
     {
-        //
+        return new ProduktgruppeResource($produktgruppe);
     }
 
     /**

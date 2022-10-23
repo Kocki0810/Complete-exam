@@ -6,6 +6,8 @@ use App\Http\Requests\StorefirmaRequest;
 use App\Http\Requests\UpdatefirmaRequest;
 use App\Models\firma;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\V1\FirmaResource;
+use App\Http\Resources\V1\FirmaCollection;
 
 class FirmaController extends Controller
 {
@@ -16,7 +18,7 @@ class FirmaController extends Controller
      */
     public function index()
     {
-        return firma::all();   
+        return new firmaCollection(firma::paginate());
     }
 
     /**
@@ -48,7 +50,7 @@ class FirmaController extends Controller
      */
     public function show(firma $firma)
     {
-        //
+        return new FirmaResource($firma);
     }
 
     /**

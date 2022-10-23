@@ -6,6 +6,8 @@ use App\Http\Requests\StoreordreRequest;
 use App\Http\Requests\UpdateordreRequest;
 use App\Models\ordre;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\V1\OrdreResource;
+use App\Http\Resources\V1\OrdreCollection;
 
 class OrdreController extends Controller
 {
@@ -16,7 +18,7 @@ class OrdreController extends Controller
      */
     public function index()
     {
-        return ordre::all();
+        return new OrdreCollection(ordre::paginate());
     }
 
     /**
@@ -48,7 +50,7 @@ class OrdreController extends Controller
      */
     public function show(ordre $ordre)
     {
-        //
+        return new OrdreResource($ordre);
     }
 
     /**
