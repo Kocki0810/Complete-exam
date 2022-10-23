@@ -10,6 +10,7 @@ use App\Http\Resources\V1\BrugerResource;
 use App\Http\Resources\V1\BrugerCollection;
 use App\Http\Controllers\Controller;
 use App\Filters\V1\BrugerFilter;
+use App\Filters\ApiFilter;
 
 class BrugerController extends Controller
 {
@@ -20,9 +21,16 @@ class BrugerController extends Controller
      */
     public function index(Request $request)
     {
-        $filter = new BrugerFilter();
+        $filter = new ApiFilter();
         $queryItems = $filter->transform($request);
-        return new BrugerCollection(bruger::where($queryItems)->paginate());
+        $includeEkspedient = $request->query('includeEkspedient');
+
+        $bruger = bruger::where($queryItems);
+        if($includeEkspedient)
+        {
+            $bruger = bruger::where($queryItems)->with('ekspedient');
+        }
+        return new BrugerCollection($bruger->get());
     }
 
     /**
