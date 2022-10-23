@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('ekspedienter', function (Blueprint $table) {
             $table->increments('id')->unsigned();
             $table->integer('firma_id')->unsigned();
+            $table->integer('bruger_id')->unsigned()->nullable();
             $table->integer('kortnummer')->unsigned();
             $table->string('navn', 255)->nullable();
 

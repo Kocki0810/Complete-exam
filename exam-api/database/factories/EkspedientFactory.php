@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\firma;
+use App\Models\bruger;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,7 +20,7 @@ class EkspedientFactory extends Factory
         $gender = $this->faker->randomElement(['male', 'female']);
 
         return [
-            // 'firmaID' => $this->faker->randomElement(firma::pluck('firmaID')),
+            'bruger_id' => $this->faker->randomElement(bruger::pluck('id')),
             'kortnummer' => $this->faker->ean8,
             'navn' => $this->faker->name($gender),
         ];
