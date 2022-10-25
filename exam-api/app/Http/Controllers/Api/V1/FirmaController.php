@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use Illuminate\Http\Request;
+
 use App\Http\Requests\StorefirmaRequest;
 use App\Http\Requests\UpdatefirmaRequest;
-use App\Models\firma;
-use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\FirmaResource;
 use App\Http\Resources\V1\FirmaCollection;
+use App\Http\Controllers\Controller;
+
+use App\Models\firma;
+use App\Filters\ApiFilter;
 
 class FirmaController extends Controller
 {
@@ -16,9 +20,22 @@ class FirmaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return new firmaCollection(firma::paginate());
+        $filter = new ApiFilter();
+        $queryItems = $filter->transform($request);
+        $includeEkspedient = $request->query('includeEkspedient');
+
+        if(count($includes) == 0)
+        {
+            $firma = firma::where($queryItems);
+        }
+        else
+        {
+            $firma = firma::where($queryItems)->with($includes);
+        }
+        
+        return new FirmaCollection($firma->get());
     }
 
     /**
@@ -39,7 +56,15 @@ class FirmaController extends Controller
      */
     public function store(StorefirmaRequest $request)
     {
-        //
+        $insertedRows = [];
+        $data = collect($request->all());
+        foreach($data as $column)
+        {
+            $newColumn = new FirmaResource(firma::create($column));
+            $insertedRows[] = $newColumn->id;
+        }
+
+        return $insertedRows;
     }
 
     /**
@@ -84,6 +109,6 @@ class FirmaController extends Controller
      */
     public function destroy(firma $firma)
     {
-        //
+        $firma->Delete();
     }
 }

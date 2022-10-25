@@ -24,11 +24,43 @@ class ApiFilter {
         'lt' => '<',
         'lte' => '<=',
         'ne' => '!=',
-     ];
+    ];
 
+    // This is used to allow tables to be included with the query
+    protected $allowInclude = [];
+
+    public function GetIncludes(Request $request)
+    {
+        $includes = [];
+        $query = $request->query();
+        foreach($query as $value => $param)
+        {
+            if(is_array($param))
+            {
+                continue;
+            }
+            $value = strtolower($value);
+            if(substr($value, 0, 7) == "include")
+            {
+                $tableName = substr($value, 7, strlen($value)-1);
+                foreach($allowInclude as $allowed)
+                {
+                    if($allowed == $tableName)
+                    {
+                        $includes[] = $tableName;
+                    }                    
+                }
+            }
+        }
+        return $includes;
+    }
+    
     public function transform(Request $request)
     {
         $eloQuery = [];
+
+        // $includes = $this->GetIncludes($request);
+        // dd($includes);
         if(count($this->safeParams) > 0)
         {
             foreach($this->safeParams as $param => $operators)

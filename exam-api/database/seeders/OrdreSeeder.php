@@ -17,7 +17,7 @@ class OrdreSeeder extends Seeder
     {
         Ordre::factory()
         ->count(10)
-        ->hasLinjer(3)
+        ->hasLinje(3)
         ->create();
     }
 }

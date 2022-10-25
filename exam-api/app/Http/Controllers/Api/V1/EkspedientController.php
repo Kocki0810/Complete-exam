@@ -40,7 +40,15 @@ class EkspedientController extends Controller
      */
     public function store(StoreekspedientRequest $request)
     {
-        //
+        $insertedRows = [];
+        $data = collect($request->all());
+        foreach($data as $column)
+        {
+            $newColumn = new EkspedientResource(ekspedient::create($column));
+            $insertedRows[] = $newColumn->id;
+        }
+
+        return $insertedRows;
     }
 
     /**
@@ -86,6 +94,6 @@ class EkspedientController extends Controller
      */
     public function destroy(ekspedient $ekspedient)
     {
-        //
+        $ekspedient->Delete();
     }
 }

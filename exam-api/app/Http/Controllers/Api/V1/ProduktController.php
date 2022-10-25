@@ -39,7 +39,15 @@ class ProduktController extends Controller
      */
     public function store(StoreproduktRequest $request)
     {
-        //
+        $insertedRows = [];
+        $data = collect($request->all());
+        foreach($data as $column)
+        {
+            $newColumn = new ProduktResource(produkt::create($column));
+            $insertedRows[] = $newColumn->id;
+        }
+
+        return $insertedRows;
     }
 
     /**
@@ -84,6 +92,6 @@ class ProduktController extends Controller
      */
     public function destroy(produkt $produkt)
     {
-        //
+        $produkt->Delete();
     }
 }

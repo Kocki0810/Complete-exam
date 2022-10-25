@@ -18,13 +18,14 @@ return new class extends Migration
             $table->integer('firma_id')->unsigned();
             $table->integer('ekspedient_id')->unsigned();
             $table->string('navn', 255);
-            $table->string('username', 64);
-            $table->string('password', 64);
+            $table->string('username', 255);
+            $table->string('password', 255);
             $table->timestamp('last_login');
             $table->string('last_IP', 255);
             $table->integer('adgangsgruppe')->unsigned();
             $table->string('email', 255);
             $table->string('telefon', 255);
+            $table->string('remember_token', 255)->nullable();
 
             $table->softDeletes();
             $table->timestamps();

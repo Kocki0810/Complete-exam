@@ -18,10 +18,10 @@ class FirmaSeeder extends Seeder
     {
         Firma::factory()
         ->count(5)
-        ->hasProduktgrupper(5)
-        ->hasProdukter(10)
-        ->hasEkspedienter(5)
-        ->hasBrugere(2)
+        ->hasProduktgruppe(5)
+        ->hasProdukt(10)
+        ->hasEkspedient(5)
+        ->hasBruger(2)
         ->create();
         
         

@@ -39,7 +39,15 @@ class ProduktgruppeController extends Controller
      */
     public function store(StoreproduktgruppeRequest $request)
     {
-        //
+        $insertedRows = [];
+        $data = collect($request->all());
+        foreach($data as $column)
+        {
+            $newColumn = new ProduktgruppeResource(produktgruppe::create($column));
+            $insertedRows[] = $newColumn->id;
+        }
+
+        return $insertedRows;
     }
 
     /**
@@ -84,6 +92,6 @@ class ProduktgruppeController extends Controller
      */
     public function destroy(produktgruppe $produktgruppe)
     {
-        //
+        $produktgruppe->Delete();
     }
 }

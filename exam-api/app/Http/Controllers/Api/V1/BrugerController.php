@@ -10,7 +10,6 @@ use App\Http\Resources\V1\BrugerResource;
 use App\Http\Resources\V1\BrugerCollection;
 use App\Http\Controllers\Controller;
 use App\Filters\V1\BrugerFilter;
-use App\Filters\ApiFilter;
 
 class BrugerController extends Controller
 {
@@ -21,7 +20,7 @@ class BrugerController extends Controller
      */
     public function index(Request $request)
     {
-        $filter = new ApiFilter();
+        $filter = new BrugerFilter();
         $queryItems = $filter->transform($request);
         $includeEkspedient = $request->query('includeEkspedient');
 
@@ -51,7 +50,15 @@ class BrugerController extends Controller
      */
     public function store(StorebrugerRequest $request)
     {
-        //
+        $insertedRows = [];
+        $data = collect($request->all());
+        foreach($data as $column)
+        {
+            $newColumn = new BrugerResource(bruger::create($column));
+            $insertedRows[] = $newColumn->id;
+        }
+
+        return $insertedRows;
     }
 
     /**
@@ -85,7 +92,7 @@ class BrugerController extends Controller
      */
     public function update(UpdatebrugerRequest $request, bruger $bruger)
     {
-        //
+        $bruger->update($request->all());
     }
 
     /**
@@ -96,6 +103,6 @@ class BrugerController extends Controller
      */
     public function destroy(bruger $bruger)
     {
-        //
+        $bruger->Delete();
     }
 }

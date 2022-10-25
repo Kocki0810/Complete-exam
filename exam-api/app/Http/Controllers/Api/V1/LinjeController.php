@@ -39,7 +39,15 @@ class LinjeController extends Controller
      */
     public function store(StorelinjeRequest $request)
     {
-        //
+        $insertedRows = [];
+        $data = collect($request->all());
+        foreach($data as $column)
+        {
+            $newColumn = new LinjeResource(linje::create($column));
+            $insertedRows[] = $newColumn->id;
+        }
+
+        return $insertedRows;
     }
 
     /**
@@ -85,6 +93,6 @@ class LinjeController extends Controller
      */
     public function destroy(linje $linje)
     {
-        //
+        $linje->Delete();
     }
 }

@@ -39,7 +39,15 @@ class OrdreController extends Controller
      */
     public function store(StoreordreRequest $request)
     {
-        //
+        $insertedRows = [];
+        $data = collect($request->all());
+        foreach($data as $column)
+        {
+            $newColumn = new OrdreResource(ordre::create($column));
+            $insertedRows[] = $newColumn->id;
+        }
+
+        return $insertedRows;   
     }
 
     /**
@@ -84,6 +92,6 @@ class OrdreController extends Controller
      */
     public function destroy(ordre $ordre)
     {
-        //
+        $ordre->Delete();
     }
 }
