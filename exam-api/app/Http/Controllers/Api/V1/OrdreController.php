@@ -9,6 +9,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\OrdreResource;
 use App\Http\Resources\V1\OrdreCollection;
 
+use Illuminate\Http\Request;
+use App\Filters\V1\OrdreFilter;
 class OrdreController extends Controller
 {
     /**
@@ -16,9 +18,23 @@ class OrdreController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request )
     {
-        return new OrdreCollection(ordre::paginate());
+        $filter = new OrdreFilter();
+        $query = $filter->transform($request);
+        $queryItems = $query['dataCollection'];
+        $includes = $query['includeCollection'];
+
+        if(count($includes) == 0)
+        {
+            $ordre = ordre::where($queryItems);
+        }
+        else
+        {
+            $ordre = ordre::where($queryItems)->with($includes);
+        }
+        
+        return new OrdreCollection($bruger->get());
     }
 
     /**

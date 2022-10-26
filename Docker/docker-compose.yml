@@ -9,10 +9,12 @@ services:
       - '3306:3306'
     expose:
       - '3306'
-  exam-website:
-    build: ../exam-website
-    ports:
-      - "8080:8080"
+  # exam-website:
+  #   build: ../exam-website
+  #   ports:
+  #     - "8080:80"
+  #   volumes:
+  #      - '..exam-website:/app'
   exam-api:
     image: docker.io/bitnami/laravel:9
     ports:

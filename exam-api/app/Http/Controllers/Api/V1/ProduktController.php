@@ -9,6 +9,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\ProduktResource;
 use App\Http\Resources\V1\ProduktCollection;
 
+use Illuminate\Http\Request;
+use App\Filters\V1\ProduktFilter;
+
 class ProduktController extends Controller
 {
     /**
@@ -16,9 +19,23 @@ class ProduktController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return new ProduktCollection(produkt::paginate());
+        $filter = new ProduktFilter();
+        $query = $filter->transform($request);
+        $queryItems = $query['dataCollection'];
+        $includes = $query['includeCollection'];
+
+        if(count($includes) == 0)
+        {
+            $produkt = produkt::where($queryItems);
+        }
+        else
+        {
+            $produkt = produkt::where($queryItems)->with($includes);
+        }
+        
+        return new ProduktCollection($bruger->get());
     }
 
     /**

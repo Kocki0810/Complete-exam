@@ -9,6 +9,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\LinjeResource;
 use App\Http\Resources\V1\LinjeCollection;
 
+use Illuminate\Http\Request;
+use App\Filters\V1\LinjeFilter;
+
 class LinjeController extends Controller
 {
     /**
@@ -16,9 +19,23 @@ class LinjeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return new linjeCollection(linje::paginate());
+        $filter = new LinjeFilter();
+        $query = $filter->transform($request);
+        $queryItems = $query['dataCollection'];
+        $includes = $query['includeCollection'];
+
+        if(count($includes) == 0)
+        {
+            $linje = linje::where($queryItems);
+        }
+        else
+        {
+            $linje = linje::where($queryItems)->with($includes);
+        }
+        
+        return new linjeCollection($bruger->get());
     }
 
     /**

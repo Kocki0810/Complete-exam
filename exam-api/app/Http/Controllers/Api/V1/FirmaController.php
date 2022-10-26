@@ -11,7 +11,7 @@ use App\Http\Resources\V1\FirmaCollection;
 use App\Http\Controllers\Controller;
 
 use App\Models\firma;
-use App\Filters\ApiFilter;
+use App\Filters\V1\FirmaFilter;
 
 class FirmaController extends Controller
 {
@@ -22,9 +22,10 @@ class FirmaController extends Controller
      */
     public function index(Request $request)
     {
-        $filter = new ApiFilter();
-        $queryItems = $filter->transform($request);
-        $includeEkspedient = $request->query('includeEkspedient');
+        $filter = new FirmaFilter();
+        $query = $filter->transform($request);
+        $queryItems = $query['dataCollection'];
+        $includes = $query['includeCollection'];
 
         if(count($includes) == 0)
         {

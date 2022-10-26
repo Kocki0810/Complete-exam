@@ -43,7 +43,7 @@ class ApiFilter {
             if(substr($value, 0, 7) == "include")
             {
                 $tableName = substr($value, 7, strlen($value)-1);
-                foreach($allowInclude as $allowed)
+                foreach($this->allowInclude as $allowed)
                 {
                     if($allowed == $tableName)
                     {
@@ -58,9 +58,7 @@ class ApiFilter {
     public function transform(Request $request)
     {
         $eloQuery = [];
-
-        // $includes = $this->GetIncludes($request);
-        // dd($includes);
+        $eloQuery['includeCollection'] = $this->GetIncludes($request);
         if(count($this->safeParams) > 0)
         {
             foreach($this->safeParams as $param => $operators)
@@ -70,40 +68,38 @@ class ApiFilter {
                 {
                     continue;
                 }
-
+                
                 $column = $this->columnMap[$param] ?? $param;
                 foreach($operators as $operator)
                 {
                     if(isset($query[$operator]))
                     {
-                        $eloQuery[] = [$column, $this->operatorMap[$operator], $query[$operator]];
+                        $eloQuery['dataCollection'][] = [$column, $this->operatorMap[$operator], $query[$operator]];
                     }
                 }
-            }
+            }   
         }
         else
         {
             $query = $request->query();
+            // dd($query->request);
             foreach($query as $param => $operators)
             {
-                if(!is_array($param))
+                if(!is_array($operators))
                 {
                     continue;
                 }
                 $column = $this->columnMap[$param] ?? $param;
                 foreach($operators as $operator => $value)
                 {
-                    if(!isset($this->operatorMap[$operator]))
-                    {
-                        abort(response("ILLEGAL OPERATION", 418));
-                    }
                     if(isset($operators[$operator]))
                     {
-                        $eloQuery[] = [$column, $this->operatorMap[$operator], $operators];
+                        $eloQuery['dataCollection'][] = [$column, $this->operatorMap[$operator], $operators];
                     }
                 }
             }
         }
+
         return $eloQuery;
     }
 }

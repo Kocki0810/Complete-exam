@@ -9,6 +9,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\EkspedientResource;
 use App\Http\Resources\V1\EkspedientCollection;
 
+use Illuminate\Http\Request;
+use App\Filters\V1\EkspedientFilter;
+
+
 
 class EkspedientController extends Controller
 {
@@ -17,9 +21,23 @@ class EkspedientController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return new EkspedientCollection(ekspedient::paginate());
+        $filter = new EkspedientFilter();
+        $query = $filter->transform($request);
+        $queryItems = $query['dataCollection'];
+        $includes = $query['includeCollection'];
+        
+        if(count($includes) == 0)
+        {
+            $ekspedient = ekspedient::where($queryItems);
+        }
+        else
+        {
+            $ekspedient = ekspedient::where($queryItems)->with($includes);
+        }
+        
+        return new EkspedientCollection($ekspedient->get());
     }
 
     /**

@@ -13,6 +13,8 @@ use App\Filters\V1\BrugerFilter;
 
 class BrugerController extends Controller
 {
+
+
     /**
      * Display a listing of the resource.
      *
@@ -21,14 +23,19 @@ class BrugerController extends Controller
     public function index(Request $request)
     {
         $filter = new BrugerFilter();
-        $queryItems = $filter->transform($request);
-        $includeEkspedient = $request->query('includeEkspedient');
-
-        $bruger = bruger::where($queryItems);
-        if($includeEkspedient)
+        $query = $filter->transform($request);
+        $queryItems = $query['dataCollection'];
+        $includes = $query['includeCollection'];
+        
+        if(count($includes) == 0)
         {
-            $bruger = bruger::where($queryItems)->with('ekspedient');
+            $bruger = bruger::where($queryItems);
         }
+        else
+        {
+            $bruger = bruger::where($queryItems)->with($includes);
+        }
+        
         return new BrugerCollection($bruger->get());
     }
 
