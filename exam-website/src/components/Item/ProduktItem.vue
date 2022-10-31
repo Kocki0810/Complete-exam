@@ -15,9 +15,8 @@
             />
             <select @change="m_Produktgruppe">
                 <option selected>Flyt Produktgruppe</option>
-                <option v-for="(produktgruppe, index) in p_Produktgruppe" v-bind:key="produktgruppe?.id"
-                :value="produktgruppe?.id + ',' + index"
-                @input="m_Produktpris"
+                <option v-for="(produktgruppe) in p_Produktgruppe" v-bind:key="produktgruppe?.id"
+                :value="produktgruppe?.id"
                 type="navn"
                 placeholder="Pris">{{produktgruppe.navn}}
                 </option>

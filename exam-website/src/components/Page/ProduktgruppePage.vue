@@ -8,9 +8,8 @@
         <template #select>
             <select @change="test">
                 <option disabled selected>Flyt Produktgruppe</option>
-                <option v-for="(produktgruppe, index) in produktgrupper?.data" v-bind:key="produktgruppe?.id"
-                :value="produktgruppe?.id + ',' + index"
-                @input="m_Produktpris"
+                <option v-for="(produktgruppe) in produktgrupper?.data" v-bind:key="produktgruppe?.id"
+                :value="produktgruppe?.id"
                 type="navn"
                 placeholder="Pris">{{produktgruppe.navn}}
                 </option>
@@ -45,11 +44,10 @@
                     type="navn"
                     placeholder="Pris"
                     />
-                    <select @change="event => NewProdukt.produktgruppe_id = event.target.value">
+                    <select @change="newProduktValues">
                         <option disabled selected>Vælg Produktgruppe</option>
-                        <option v-for="(produktgruppe, index) in produktgrupper?.data" v-bind:key="produktgruppe?.id"
-                        :value="produktgruppe?.id + ',' + index"
-                        @input="m_Produktpris"
+                        <option v-for="(produktgruppe) in produktgrupper?.data" v-bind:key="produktgruppe?.id"
+                        :value="produktgruppe?.id"
                         type="navn"
                         placeholder="Pris">{{produktgruppe.navn}}
                         </option>
@@ -114,6 +112,11 @@ export default {
         {
             console.log(event.target.selectedIndex)
         },
+        newProduktValues()
+        {
+            this.NewProdukt.produktgruppe_id = event.target.value
+            this.NewProdukt.produktgruppe_flytTilIndex = (event.target.selectedIndex-1)
+        },
         getProdukter: function() {
             axios
             .get('http://localhost:8000/api/v1/produktgruppe?id[gt]=0&includeprodukt=1', controller.signal)
@@ -138,18 +141,18 @@ export default {
                 {
                     if(produktValue.Changed)
                     {
-                        var produktgruppeID = produktValue.produktgruppe_id.toString().split(",");
-                        if(produktValue.produktgruppe_id.toString().includes(","))
+                        var produktgruppeID = produktValue.produktgruppe_id;
+                        var flytTilIndex = produktValue.produktgruppe_flytTilIndex;
+                        if(produktValue.produktgruppe_flytTilIndex != undefined)
                         {
                             var produktToChange = {
                                 fromGruppeIndex: key,
-                                ToGruppeIndex: produktgruppeID[1],
+                                ToGruppeIndex: produktValue.produktgruppe_flytTilIndex,
                                 produkt: produktValue
                             } 
                             ProduktgruppeChanges.push(produktToChange);
                         }
                         
-                        produktgruppeID = produktValue.produktgruppe_id[0];
                         var temp = {
                             id: produktValue.id,
                             produktgruppe_id: produktgruppeID,
@@ -216,11 +219,11 @@ export default {
             .delete('http://localhost:8000/api/v1/produkt/' + produktID)
         },
         OpretProdukt() {
-            var gruppeIndex = this.NewProdukt.produktgruppe_id.split(',')[1];
+            var gruppeIndex = this.NewProdukt.produktgruppe_flytTilIndex;
             var produkt = {
                 navn: this.NewProdukt.navn,
                 pris: this.NewProdukt.pris,
-                produktgruppe_id: this.NewProdukt.produktgruppe_id.split(',')[0],
+                produktgruppe_id: this.NewProdukt.produktgruppe_id,
                 firma_id: this.firma_id
             }
 
@@ -264,6 +267,7 @@ export default {
             else if(value == "gruppe")
             {
                 produkt.produktgruppe_id = event.target.value;
+                produkt.produktgruppe_flytTilIndex = (event.target.selectedIndex-1);
             }
         },
         ChangeInputProduktgruppe(gruppeIndex){
