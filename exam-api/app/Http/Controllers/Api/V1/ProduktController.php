@@ -35,7 +35,7 @@ class ProduktController extends Controller
             $produkt = produkt::where($queryItems)->with($includes);
         }
         
-        return new ProduktCollection($bruger->get());
+        return new ProduktCollection($produkt->get());
     }
 
     /**
@@ -96,9 +96,13 @@ class ProduktController extends Controller
      * @param  \App\Models\produkt  $produkt
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateproduktRequest $request, produkt $produkt)
+    public function update(UpdateproduktRequest $request)
     {
-        //
+        $data = collect($request->all());
+        foreach($data as $column)
+        {
+            produkt::where("id", $column['id'])->update($column);
+        }
     }
 
     /**

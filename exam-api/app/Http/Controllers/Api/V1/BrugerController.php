@@ -97,9 +97,13 @@ class BrugerController extends Controller
      * @param  \App\Models\bruger  $bruger
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatebrugerRequest $request, bruger $bruger)
+    public function update(UpdatebrugerRequest $request)
     {
-        $bruger->update($request->all());
+        $data = collect($request->all());
+        foreach($data as $column)
+        {
+            bruger::where("id", $column['id'])->update($column);
+        }
     }
 
     /**

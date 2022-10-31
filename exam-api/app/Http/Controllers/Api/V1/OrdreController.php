@@ -34,7 +34,7 @@ class OrdreController extends Controller
             $ordre = ordre::where($queryItems)->with($includes);
         }
         
-        return new OrdreCollection($bruger->get());
+        return new OrdreCollection($ordre->get());
     }
 
     /**
@@ -95,9 +95,13 @@ class OrdreController extends Controller
      * @param  \App\Models\ordre  $ordre
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateordreRequest $request, ordre $ordre)
+    public function update(UpdateordreRequest $request)
     {
-        //
+        $data = collect($request->all());
+        foreach($data as $column)
+        {
+            ordre::where("id", $column['id'])->update($column);
+        }
     }
 
     /**

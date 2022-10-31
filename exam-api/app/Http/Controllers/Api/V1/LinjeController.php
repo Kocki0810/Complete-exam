@@ -35,7 +35,7 @@ class LinjeController extends Controller
             $linje = linje::where($queryItems)->with($includes);
         }
         
-        return new linjeCollection($bruger->get());
+        return new linjeCollection($linje->get());
     }
 
     /**
@@ -97,9 +97,13 @@ class LinjeController extends Controller
      * @param  \App\Models\linje  $linje
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatelinjeRequest $request, linje $linje)
+    public function update(UpdatelinjeRequest $request)
     {
-        //
+        $data = collect($request->all());
+        foreach($data as $column)
+        {
+            linje::where("id", $column['id'])->update($column);
+        }
     }
 
     /**

@@ -35,7 +35,7 @@ class ProduktgruppeController extends Controller
             $produkt = produktgruppe::where($queryItems)->with($includes);
         }
         
-        return new ProduktgruppeCollection($bruger->get());
+        return new ProduktgruppeCollection($produkt->get());
     }
 
     /**
@@ -96,9 +96,13 @@ class ProduktgruppeController extends Controller
      * @param  \App\Models\produktgruppe  $produktgruppe
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateproduktgruppeRequest $request, produktgruppe $produktgruppe)
+    public function update(UpdateproduktgruppeRequest $request)
     {
-        //
+        $data = collect($request->all());
+        foreach($data as $column)
+        {
+            produktgruppe::where("id", $column['id'])->update($column);
+        }
     }
 
     /**

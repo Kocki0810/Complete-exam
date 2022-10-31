@@ -99,9 +99,13 @@ class EkspedientController extends Controller
      * @param  \App\Models\ekspedient  $ekspedient
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateekspedientRequest $request, ekspedient $ekspedient)
+    public function update(UpdateekspedientRequest $request)
     {
-        //
+        $data = collect($request->all());
+        foreach($data as $column)
+        {
+            ekspedient::where("id", $column['id'])->update($column);
+        }
     }
 
     /**

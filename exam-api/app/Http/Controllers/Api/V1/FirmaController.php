@@ -97,9 +97,13 @@ class FirmaController extends Controller
      * @param  \App\Models\firma  $firma
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatefirmaRequest $request, firma $firma)
+    public function update(UpdatefirmaRequest $request)
     {
-        //
+        $data = collect($request->all());
+        foreach($data as $column)
+        {
+            firma::where("id", $column['id'])->update($column);
+        }
     }
 
     /**
