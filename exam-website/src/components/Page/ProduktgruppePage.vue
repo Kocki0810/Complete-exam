@@ -1,12 +1,12 @@
 <template>
     <div>
         <Teleport to="body">
-        <modalPgDelete :p_show="showModal" @close="showModal = false">
+        <modalPgDelete @click="ModalTjek" :p_show="showModal" @Flyt-Produkter="FlytProdukter" @Delete-Produktgruppe="DeleteProduktgruppe" @close="showModal = false">
         <template #header>
             <h3>Der er {{modalProduktAntal}} produkter i denne gruppe</h3>
         </template>
         <template #select>
-            <select @change="test">
+            <select class="form-control col-sm" @change="modalProduktgruppeValues">
                 <option disabled selected>Flyt Produktgruppe</option>
                 <option v-for="(produktgruppe) in produktgrupper?.data" v-bind:key="produktgruppe?.id"
                 :value="produktgruppe?.id"
@@ -18,42 +18,46 @@
         </modalPgDelete>
         </Teleport>
         <div>
-            <button @click="getProdukter">Get produkter</button>
-            <button @click="SubmitProduktForm">submit test</button>
+            <button type="button" class="btn btn-primary col-md-auto m-2" @click="SubmitProduktForm">submit</button>
         </div>
         <div>
-            <form @submit.prevent v:model="ProduktForm">
-                <div>
+            <form class="form-group" @submit.prevent v:model="ProduktForm">
+                <div class="form-group row m-2">
                     <input
                     :value="NewProduktgruppe.navn"
                     @input="event => NewProduktgruppe.navn = event.target.value"
                     type="navn"
-                    placeholder="Navn"/>
-                    <button @click="OpretProduktgruppe">Opret Produktgruppe</button>
+                    placeholder="Navn"
+                    class="form-control col-sm"
+                    />
+                    <button type="button" class="btn btn-primary col-md-auto m-2" @click="OpretProduktgruppe">Opret Produktgruppe</button>
                 </div>
-                <div>
+                <div class="form-group row m-2">
                     <input
                     :value="NewProdukt.navn"
                     @input="event => NewProdukt.navn = event.target.value"
                     type="navn"
                     placeholder="Navn"
+                    class="form-control col-sm"
                     />
                     <input
                     :value="NewProdukt.pris"
                     @input="event => NewProdukt.pris = event.target.value"
                     type="navn"
                     placeholder="Pris"
+                    class="form-control col-sm"
                     />
-                    <select @change="newProduktValues">
+                    <select @change="newProduktValues" class="form-control col-sm">
                         <option disabled selected>Vælg Produktgruppe</option>
                         <option v-for="(produktgruppe) in produktgrupper?.data" v-bind:key="produktgruppe?.id"
                         :value="produktgruppe?.id"
                         type="navn"
                         placeholder="Pris">{{produktgruppe.navn}}
-                        </option>
+                    </option>
                     </select>
-                    <button @click="OpretProdukt">Opret Produkt</button>
+                    <button type="button" class="btn btn-primary col-md-auto m-2" @click="OpretProdukt">Opret Produkt</button>
                 </div>
+                <br>
                 <div v-for="(produktgruppe, gruppeIndex) in produktgrupper.data" v-bind:key="produktgruppe.id">
                     <ProduktgruppeItem :p_Navn="produktgruppe.navn" :p_index="gruppeIndex" :p_produktgruppeID="produktgruppe.id" @delete-produktgruppe="Check_Deleteproduktgruppe" @produktgruppe-navn="ChangeInputProduktgruppe"></ProduktgruppeItem>
                     <div v-for="(produkt, index) in produktgruppe.produkt" v-bind:key="produkt.id">
@@ -72,6 +76,7 @@
 import ProduktItem from '../Item/ProduktItem.vue';
 import ProduktgruppeItem from '../Item/ProduktgruppeItem.vue';
 import modalPgDelete from '../Util/ModalProduktgruppe.vue';
+
 
 import axios from 'axios'
 import { toRaw } from 'vue';
@@ -103,14 +108,26 @@ export default {
                 navn: "", 
             },
             showModal: false,
-            modalProduktAntal: 0,
-            modalFlytProdukterTil: -1,
+            ModalValues: {
+                ProduktAntal: 0,
+                FlytProdukterTilIndex: -1,
+                FlytProdukterID: -1,
+                FlytFraIndeks: -1,
+                FlytFraGruppeID: -1
+            }
         }
     },
     methods: {
-        test()
+        ModalTjek(){
+            if(event.target.classList.contains("modal-wrapper"))
+            {
+                this.showModal = false;
+            }
+        },
+        modalProduktgruppeValues()
         {
-            console.log(event.target.selectedIndex)
+            this.ModalValues.FlytProdukterTilIndex = (event.target.selectedIndex-1);
+            this.ModalValues.FlytProdukterID = event.target.value;
         },
         newProduktValues()
         {
@@ -142,7 +159,6 @@ export default {
                     if(produktValue.Changed)
                     {
                         var produktgruppeID = produktValue.produktgruppe_id;
-                        var flytTilIndex = produktValue.produktgruppe_flytTilIndex;
                         if(produktValue.produktgruppe_flytTilIndex != undefined)
                         {
                             var produktToChange = {
@@ -193,30 +209,87 @@ export default {
         Check_Deleteproduktgruppe(produktgruppeID, gruppeIndex)
         {
             var copy = this.produktgrupper;
+            this.ModalValues.ProduktAntal = copy.data[gruppeIndex].produkt.length;
+            this.ModalValues.FlytFraIndeks = gruppeIndex;
+            this.ModalValues.FlytFraGruppeID = produktgruppeID
             if(copy.data[gruppeIndex].produkt.length != 0)
             {
-                this.modalProduktAntal = copy.data[gruppeIndex].produkt.length;
                 this.showModal = true;
+            }
+            else
+            {
+                this.DeleteProduktgruppe(false);
             }
         },
-        DelteProduktgruppe(produktgruppeID, gruppeIndex){
+        DeleteProduktgruppe(DeleteProdukter = true){
             var copy = this.produktgrupper;
-            if(copy.data[gruppeIndex].produkt.length != 0)
-            {
-                this.modalProduktAntal = copy.data[gruppeIndex].produkt.length;
-                this.showModal = true;
-            }
-            // toRaw(copy.data.splice(gruppeIndex, 1));
+            var Index = this.ModalValues.FlytFraIndeks;
+            var produkter = toRaw(copy.data[Index].produkt)
+            toRaw(copy.data.splice(Index, 1));
+            var pgID = [{id:this.ModalValues.FlytFraGruppeID}];
             
-            // axios
-            // .delete('http://localhost:8000/api/v1/produktgruppe/' + produktgruppeID)
+            if(DeleteProdukter)
+            {
+                var toDelete = [];
+                
+                produkter.forEach(element => {
+                    var temp = {
+                        id: element.id
+                    }
+                    toDelete.push(temp);
+                })
+                console.log(toDelete)
+
+                axios({
+                    method: 'DELETE',
+                    url: 'http://localhost:8000/api/v1/produkt/delete',
+                    headers: {}, 
+                    data: toDelete
+                });
+            }
+            
+            axios({
+                    method: 'DELETE',
+                    url: 'http://localhost:8000/api/v1/produktgruppe/delete',
+                    headers: {}, 
+                    data: pgID
+            });
+        },
+        FlytProdukter()
+        {
+            var FlytProdukter = [];
+            var produktgruppe = this.produktgrupper.data;
+            var produkter = produktgruppe[this.ModalValues.FlytFraIndeks].produkt;
+            var ProduktgruppeID = this.ModalValues.FlytFraGruppeID;
+            produkter.forEach(element => {
+                
+                element.produktgruppeID = this.ModalValues.FlytProdukterID
+                var moveProdukt = {
+                    id: element.id,
+                    produktgruppe_id: element.produktgruppeID
+                }
+                this.produktgrupper.data[this.ModalValues.FlytProdukterTilIndex].produkt.push(element)
+                FlytProdukter.push(moveProdukt);
+            });
+            axios({
+                    method: 'PATCH',
+                    url: 'http://localhost:8000/api/v1/produkt/update',
+                    headers: {}, 
+                    data: FlytProdukter
+            });
+            
+            this.DeleteProduktgruppe(false);
         },
         DelteProdukt(produktID, index, gruppeIndex){
             var copy = this.produktgrupper;
             toRaw(copy.data[gruppeIndex].produkt.splice(index, 1));
-            
-            axios
-            .delete('http://localhost:8000/api/v1/produkt/' + produktID)
+
+            axios({
+                method: 'DELETE',
+                url: 'http://localhost:8000/api/v1/produkt/delete',
+                headers: {}, 
+                data: [{id:produktID}]
+            });
         },
         OpretProdukt() {
             var gruppeIndex = this.NewProdukt.produktgruppe_flytTilIndex;

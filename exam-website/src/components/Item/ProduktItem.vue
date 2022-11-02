@@ -1,27 +1,34 @@
 <template>
     <div>
         <div>
-            <input
-            :value="this.navn"
-            @input="m_ProduktNavn"
-            type="navn"
-            placeholder="Navn"
-            />
-            <input
-            :value="this.pris"
-            @input="m_Produktpris"
-            type="navn"
-            placeholder="Pris"
-            />
-            <select @change="m_Produktgruppe">
-                <option selected>Flyt Produktgruppe</option>
-                <option v-for="(produktgruppe) in p_Produktgruppe" v-bind:key="produktgruppe?.id"
-                :value="produktgruppe?.id"
+            <div class="form-group row m-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="max" fill="currentColor" class="bi bi-dot col-md-auto" viewBox="0 0 16 16">
+                <path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
+                </svg>
+                <input
+                :value="this.navn"
+                @input="m_ProduktNavn"
                 type="navn"
-                placeholder="Pris">{{produktgruppe.navn}}
+                placeholder="Navn"
+                class="form-control col-sm"
+                />
+                <input
+                :value="this.pris"
+                @input="m_Produktpris"
+                type="navn"
+                placeholder="Pris"
+                class="form-control col-sm"
+                />
+                <select @change="m_Produktgruppe" class="form-control col-sm">
+                    <option selected>Flyt Produktgruppe</option>
+                    <option v-for="(produktgruppe) in p_Produktgruppe" v-bind:key="produktgruppe?.id"
+                    :value="produktgruppe?.id"
+                    type="navn"
+                    placeholder="Pris">{{produktgruppe.navn}}
                 </option>
-            </select>
-            <button @click="$emit('delete-produkt', p_ProduktID, p_Index, p_GruppeIndex)">Slet</button>
+                </select>
+                <button type="button" class="btn btn-danger col-md-auto m-2" @click="$emit('delete-produkt', p_ProduktID, p_Index, p_GruppeIndex)">Slet</button>
+            </div>
         </div>
     </div>
 </template>

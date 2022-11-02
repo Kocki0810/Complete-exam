@@ -59,7 +59,7 @@ class BrugerController extends Controller
     {
         $insertedRows = [];
         $data = collect($request->all());
-        foreach($data as $column)
+        foreach($data["data"] as $column)
         {
             $newColumn = new BrugerResource(bruger::create($column));
             $insertedRows[] = $newColumn->id;
@@ -112,8 +112,12 @@ class BrugerController extends Controller
      * @param  \App\Models\bruger  $bruger
      * @return \Illuminate\Http\Response
      */
-    public function destroy(bruger $bruger)
+    public function destroy(UpdatebrugerRequest $request)
     {
-        $bruger->Delete();
+        $data = collect($request->all());
+        foreach($data as $column)
+        {
+            bruger::where("id", $column['id'])->delete($column);
+        }
     }
 }

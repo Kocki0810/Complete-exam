@@ -1,10 +1,10 @@
 <template>
     <div>
-        <li>
-            <!-- <ul @click="this.$emit('Update-Page', 'StartPage')">Start</ul> -->
-            <ul @click="this.$emit('Update-Page', 'ProduktgruppePage')">Produktgrupper</ul>
-            <!-- <ul @click="this.$emit('Update-Page', 'EkspedientPage')">Ekspedienter</ul> -->
-            <!-- <ul @click="this.$emit('Update-Page', 'RapportPage')">Rapporter</ul> -->
-        </li>
+        <div class="">
+            <p @click="this.$emit('Update-Page', 'StartPage')">Start</p>
+            <p @click="this.$emit('Update-Page', 'ProduktgruppePage')">Produktgrupper</p>
+            <p @click="this.$emit('Update-Page', 'EkspedientPage')">Ekspedienter</p>
+            <p @click="this.$emit('Update-Page', 'RapportPage')">Rapporter</p>
+        </div>
     </div>
 </template>

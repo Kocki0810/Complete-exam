@@ -1,38 +1,44 @@
 <template>
 <div>
-    <div>
-        <span>- ekspedient </span>
+    <div class="form-group row m-2">
         <input
         :value="this.EksNavn"
         @input="m_EksNavn"
         type="navn"
         placeholder="Navn"
+        class="form-control col-sm"
         />
         <input
         :value="this.EksKortnummer"
         @input="m_EksKortnummer"
         placeholder="Kortnummer"
+        class="form-control col-sm"
         />
-        <button v-if="p_Empty != 1" @click="SletEkspedient">Slet Ekspedient</button>
+        <button type="button" class="btn btn-primary col-md-auto m-2" @click="SletEkspedient">Slet Ekspedient</button>
     </div>
-    <div v-if="this.bruger?.showBruger != 0">
-        <span>- Bruger </span>
+    <div class="form-group row m-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="max" fill="currentColor" class="bi bi-dot col-md-auto" viewBox="0 0 16 16">
+        <path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
+        </svg>
         <input
         :value="this.bruger?.email"
         @input="m_Email"
         placeholder="Kortnummer"
+        class="form-control col-sm"
         />
         <input
         :value="this.bruger?.password"
         @input="m_Password"
         placeholder="Navn"
+        class="form-control col-sm"
         />
         <input
         :value="this.bruger?.telefon"
         @input="m_Telefon"
         placeholder="Telefon"
+        class="form-control col-sm"
         />
-        <button v-if="p_Empty != 1" @click="SletBruger">Slet Bruger</button>
+        <button type="button" class="btn btn-primary col-md-auto m-2"  @click="SletBruger">Slet Bruger</button>
     </div>
 </div>
 </template>
@@ -79,7 +85,7 @@ export default {
         },
         SletBruger()
         {
-            this.$emit("Delete-bruger", this.bruger.id, this.index);
+            this.$emit("Delete-bruger", this.index);
         }
     }
 }

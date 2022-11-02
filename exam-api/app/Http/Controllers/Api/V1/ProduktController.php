@@ -111,8 +111,12 @@ class ProduktController extends Controller
      * @param  \App\Models\produkt  $produkt
      * @return \Illuminate\Http\Response
      */
-    public function destroy(produkt $produkt)
+    public function destroy(UpdateproduktRequest $request)
     {
-        $produkt->Delete();
+        $data = collect($request->all());
+        foreach($data as $column)
+        {
+            produkt::where("id", $column['id'])->delete($column);
+        }
     }
 }

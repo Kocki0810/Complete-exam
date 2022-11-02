@@ -111,8 +111,12 @@ class ProduktgruppeController extends Controller
      * @param  \App\Models\produktgruppe  $produktgruppe
      * @return \Illuminate\Http\Response
      */
-    public function destroy(produktgruppe $produktgruppe)
+    public function destroy(UpdateproduktgruppeRequest $request)
     {
-        $produktgruppe->Delete();
+        $data = collect($request->all());
+        foreach($data as $column)
+        {
+            produktgruppe::where("id", $column['id'])->delete($column);
+        }
     }
 }

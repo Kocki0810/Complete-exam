@@ -1,13 +1,16 @@
 <template>
 <div>
     <div>
-        <input
-        :value="this.navn"
-        @input="m_ProduktNavn"
-        type="navn"
-        placeholder="Navn"
-        />
-        <button @click="$emit('delete-produktgruppe', this.id, p_index)">Slet</button>
+        <div class="form-group row">
+            <input
+            :value="this.navn"
+            @input="m_ProduktNavn"
+            type="text"
+            placeholder="Navn"
+            class="form-control col-sm font-weight-bold"
+            />
+            <button type="button" class="btn btn-danger col-md-auto m-2" @click="$emit('delete-produktgruppe', this.id, p_index)">Slet</button>
+        </div>
     </div>
 </div>
 </template>

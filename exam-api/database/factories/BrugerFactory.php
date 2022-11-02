@@ -25,11 +25,9 @@ class BrugerFactory extends Factory
             // 'firmaID' => $this->faker->randomElement(firma::pluck('firmaID')),
             'ekspedient_id' => $ekspedientID,
             'navn' => DB::table('ekspedienter')->where('id', $ekspedientID)->value('navn'),
-            'username' => $this->faker->userName,
             'password' => $this->faker->password,
             'last_login' => $this->faker->dateTimeThisDecade(),
             'last_IP' => $this->faker->ipv4,
-            'adgangsgruppe' => $this->faker->numberBetween(1, 5),
             'email' => $this->faker->email,
             'telefon' => $this->faker->phoneNumber,
         ];

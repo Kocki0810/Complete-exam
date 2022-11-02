@@ -114,8 +114,12 @@ class EkspedientController extends Controller
      * @param  \App\Models\ekspedient  $ekspedient
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ekspedient $ekspedient)
+    public function destroy(UpdateekspedientRequest $request)
     {
-        $ekspedient->Delete();
+        $data = collect($request->all());
+        foreach($data as $column)
+        {
+            ekspedient::where("id", $column['id'])->delete($column);
+        }
     }
 }

@@ -112,8 +112,12 @@ class FirmaController extends Controller
      * @param  \App\Models\firma  $firma
      * @return \Illuminate\Http\Response
      */
-    public function destroy(firma $firma)
+    public function destroy(UpdatefirmaRequest $request)
     {
-        $firma->Delete();
+        $data = collect($request->all());
+        foreach($data as $column)
+        {
+            firma::where("id", $column['id'])->delete($column);
+        }
     }
 }

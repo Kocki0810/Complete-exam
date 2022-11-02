@@ -17,12 +17,10 @@ return new class extends Migration
             $table->increments('id')->unsigned();
             $table->integer('firma_id')->unsigned();
             $table->integer('ekspedient_id')->unsigned();
-            $table->string('navn', 255);
-            $table->string('username', 255);
+            $table->string('navn', 255)->nullable();
             $table->string('password', 255);
-            $table->timestamp('last_login');
-            $table->string('last_IP', 255);
-            $table->integer('adgangsgruppe')->unsigned();
+            $table->timestamp('last_login')->nullable();
+            $table->string('last_IP', 255)->nullable();
             $table->string('email', 255);
             $table->string('telefon', 255);
             $table->string('remember_token', 255)->nullable();

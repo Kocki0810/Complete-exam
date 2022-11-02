@@ -6,10 +6,11 @@ export default {
 }
 </script>
 
+
 <template>
   <Transition name="modal">
     <div v-if="p_show" class="modal-mask">
-      <div class="modal-wrapper">
+      <div class="form-group modal-wrapper">
         <div class="modal-container">
           <div class="modal-header">
             <slot name="header">default header</slot>
@@ -17,19 +18,26 @@ export default {
           <div class="modal-body">
             <slot name="body">Vælg en handling:</slot>
           </div>
-
+          
           <div class="modal-select">
             <span>Flyt alle produkterne til en anden gruppe:</span>
-            <slot name="select"></slot><button>Flyt</button>
+            <slot name="select"></slot><button class="btn btn-primary col-md-auto m-2" @click="$emit('Flyt-Produkter')">Flyt</button>
           </div>
-
-          <div class="modal-footer">
+          <br>
+          <div>
             <p>Eller slet alle produkterne sammen med gruppen (kan genskabes)</p>
             <button
-              class="modal-default-button"
-              @click="$emit('close')"
+            class="btn btn-danger col-md-auto m-2"
+            type="button"
+            @click="$emit('Delete-Produktgruppe')"
             >Slet</button>
+            <button
+            @click="$emit('close')"
+            class="btn btn-primary col-md-auto m-2 modal-default-button"
+            type="button"
+            >Annuller</button>
           </div>
+          <br>
         </div>
       </div>
     </div>
@@ -55,7 +63,7 @@ export default {
 }
 
 .modal-container {
-  width: 300px;
+  width: 50%;
   margin: 0px auto;
   padding: 20px 30px;
   background-color: #fff;

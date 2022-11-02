@@ -1,12 +1,19 @@
 <template>
-    <div class="SideBar">
-        <SideBar @Update-Page="ChangePage"></SideBar>
-    </div>
-    <div v-if="this.MainPage == 'ProduktgruppePage'" class="ProduktgruppePage">
-        <ProduktgruppePage :firma_id="1"/>
-    </div>
-    <div v-if="this.MainPage == 'EkspedientPage'" class="BrugePage">
-        <BrugerPage :firma_id="1"></BrugerPage>
+    <div class="container-fluid row">
+        
+        <div class="col-sm-1 text-start">
+            <SideBar @Update-Page="ChangePage"></SideBar>
+        </div>
+        <div v-if="this.MainPage == 'ProduktgruppePage'" class="col-sm-11 d-flex justify-content-center">
+            <div class="ProduktgruppePage">
+                <ProduktgruppePage :firma_id="1"/>
+            </div>
+        </div>
+        <div v-if="this.MainPage == 'EkspedientPage'" class="col-sm-11 d-flex justify-content-center">
+            <div  class="BrugePage">
+                <BrugerPage :firma_id="1"></BrugerPage>
+            </div>
+        </div>
     </div>
 </template>
 

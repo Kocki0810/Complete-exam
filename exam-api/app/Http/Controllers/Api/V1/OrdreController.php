@@ -110,8 +110,12 @@ class OrdreController extends Controller
      * @param  \App\Models\ordre  $ordre
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ordre $ordre)
+    public function destroy(UpdateordreRequest $request)
     {
-        $ordre->Delete();
+        $data = collect($request->all());
+        foreach($data as $column)
+        {
+            ordre::where("id", $column['id'])->delete($column);
+        }
     }
 }

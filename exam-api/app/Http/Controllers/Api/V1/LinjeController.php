@@ -112,8 +112,12 @@ class LinjeController extends Controller
      * @param  \App\Models\linje  $linje
      * @return \Illuminate\Http\Response
      */
-    public function destroy(linje $linje)
+    public function destroy(UpdatelinjeRequest $request)
     {
-        $linje->Delete();
+        $data = collect($request->all());
+        foreach($data as $column)
+        {
+            linje::where("id", $column['id'])->delete($column);
+        }
     }
 }

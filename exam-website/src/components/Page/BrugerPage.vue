@@ -1,13 +1,25 @@
 <template>
     <div>
         <div>
-            <button @click="getEkspedienter">Get Ekspedienter</button>
-            <button @click="SubmitEkspedientForm">submit test</button>
+            <button type="button" class="btn btn-primary col-md-auto m-2" @click="SubmitEkspedientForm">submit</button>
         </div>
         <div>
-            <form @submit.prevent v:model="BrugerForm">
-                <div>
-                    <BrugerItem :p_Empty="1"></BrugerItem>
+            <form class="form-group" @submit.prevent v:model="BrugerForm">
+                <div class="form-group row m-2">
+                    <input
+                    :value="NewEkspedient.navn"
+                    @input="event => NewEkspedient.navn = event.target.value"
+                    type="navn"
+                    placeholder="Navn"
+                    class="form-control col-sm"
+                    />
+                    <input
+                    :value="NewEkspedient.kortnummer"
+                    @input="event => NewEkspedient.kortnummer = event.target.value"
+                    placeholder="Kortnummer"
+                    class="form-control col-sm"
+                    />
+                    <button type="button" class="btn btn-primary col-md-auto m-2" @click="OpretEkspedient">Opret Ekspedient</button>
                 </div>
                 <br>
                 <div v-for="(ekspedient, index) in Ekspedienter.data" v-bind:key="ekspedient.id">
@@ -27,34 +39,41 @@
 import BrugerItem from '../Item/BrugerItem.vue';
 import axios from 'axios'
 import { toRaw } from 'vue';
-const controller = new AbortController();
 export default {
     created() {
         this.getEkspedienter();
     },
-    unmounted() {
-        controller.abort();
-    },
     components: {
         BrugerItem
+    },
+    props: {
+        firma_id: Number
     },
     data() {
         return {
             name: "Navn",
-            Ekspedienter: []
+            Ekspedienter: [],
+            NewEkspedient: {
+                navn: "", 
+                kortnummer: "",
+            },
         }
     },
     methods: {
         getEkspedienter: function() {
             axios
-            .get('http://localhost:8000/api/v1/ekspedient?id[gt]=0&includebruger=1', controller.signal)
+            .get('http://localhost:8000/api/v1/ekspedient?id[gt]=0&includebruger=1')
             .then(response => (this.Ekspedienter = response?.data));
         },
         SubmitEkspedientForm: function(){
             var EkspedientToSubmit = [];
             var BrugerToSubmit = [];
+            var BrugerToCreate = {
+                brugere: [],
+                indexer: []
+            };
             var data = toRaw(this.Ekspedienter.data);
-            console.log(data)
+            var firmaid = this.firma_id
             data.map(function(value, key)
             {
                 if(value.Changed)
@@ -66,16 +85,27 @@ export default {
                     }
                     EkspedientToSubmit.push(ekspedient);
                 }
-
                 if(value.bruger?.Changed)
                 {
+                    console.log(key);
                     var bruger = {
                         id: value.bruger.id,
                         email: value.bruger.email,
+                        navn: value.navn,
                         password: value.bruger.password,
-                        telefon: value.bruger.telefon
+                        telefon: value.bruger.telefon,
+                        firma_id: firmaid,
+                        ekspedient_id: value.id
                     }
-                    BrugerToSubmit.push(bruger);
+                    if(value.bruger?.newBruger)
+                    {
+                        BrugerToCreate.brugere.push(bruger);
+                        BrugerToCreate.indexer.push(key);
+                    }
+                    else
+                    {
+                        BrugerToSubmit.push(bruger);
+                    }
                 }
             })
             if(EkspedientToSubmit.length > 0)
@@ -96,14 +126,44 @@ export default {
                     data: BrugerToSubmit
                 });
             }
+            if(BrugerToCreate.brugere.length > 0)
+            {
+                var brugerID = [];
+                axios.post('http://localhost:8000/api/v1/bruger', {
+                    data: BrugerToCreate.brugere
+                })
+                .then(response => {
+                    brugerID = response?.data
+                    brugerID.map((value, key) => {
+                        this.Ekspedienter.data[BrugerToCreate.indexer[key]].bruger.id = value;
+                    })
+                });
+            }
         },
-        DeletBruger(brugerID, index){
-            this.Ekspedienter.data[index].bruger.showBruger = 0;
-            axios.delete('http://localhost:8000/api/v1/bruger/' + brugerID)
+        DeletBruger(index){
+            var brugerID = this.Ekspedienter.data[index].bruger.id;
+            this.Ekspedienter.data[index].bruger.email = "";
+            this.Ekspedienter.data[index].bruger.password = "";
+            this.Ekspedienter.data[index].bruger.telefon = "";
+            this.Ekspedienter.data[index].bruger.id = null;
+            this.Ekspedienter.data[index].bruger = null;
+
+            axios({
+                method: 'DELETE',
+                url: 'http://localhost:8000/api/v1/bruger/delete',
+                headers: {}, 
+                data: [{id: brugerID}]
+            });
         },
         DeletEkspedient(ekspedientID, index){
             this.Ekspedienter.data.splice(index, 1);
-            axios.delete('http://localhost:8000/api/v1/ekspedient/' + ekspedientID)
+
+            axios({
+                method: 'DELETE',
+                url: 'http://localhost:8000/api/v1/ekspedient/delete',
+                headers: {}, 
+                data: [{id: ekspedientID}]
+            });
         },
         ChangeInputBruger(index, type, value){
             var copy = toRaw(this.Ekspedienter.data[index]);
@@ -121,6 +181,11 @@ export default {
             }
             else if(type == "bruger")
             {
+                if(copy.bruger == null)
+                {
+                    copy.bruger = {newBruger: true, ekspedientID: copy.id}
+                }
+                
                 copy.bruger.Changed = true;
                 if(value == "telefon")
                 {
@@ -135,6 +200,23 @@ export default {
                     copy.bruger.password = event.target.value;
                 }
             }
+        },
+        OpretEkspedient() {
+            var ekspedient = {
+                navn: this.NewEkspedient.navn,
+                kortnummer: this.NewEkspedient.kortnummer,
+                firma_id: this.firma_id
+            }
+
+            axios.post('http://localhost:8000/api/v1/ekspedient', {
+                0 :ekspedient
+            })
+            .then((response) => {
+                ekspedient.id = response.data[0];
+                this.Ekspedienter.data.push(ekspedient);
+            })
+            this.NewEkspedient.navn = "";
+            this.NewEkspedient.kortnummer = "";
         }
     }
 }
