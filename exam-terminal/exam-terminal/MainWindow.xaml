@@ -5,8 +5,62 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:exam_terminal"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="1000" Width="1500">
     <Grid>
+        <Grid>
+            <Canvas x:Name="CV_Produktgrupper" Margin="0,43,750,674" Background="Black">
+                <ItemsControl x:Name="IC_Produktgrupper">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button Tag="{Binding Path=id}" Content="{Binding Path=Navn}" Width="150" Height="50" Click="BTN_Produktgruppe_Click">
+                                
+                            </Button>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Canvas>
+            <Canvas x:Name="CV_Produkter" Margin="0,310,750,302" Background="#FFCE1C1C">
+                <ItemsControl x:Name="IC_Produkter">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button Tag="{Binding Path=id}" Width="150" Content="{Binding Path=Btn_Text}" Height="50" Click="BTN_Produkt_Click">
+                            </Button>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Canvas>
+            <Grid>
+
+                <ListView x:Name="LV_Bonvindue" Margin="750,43,0,674" ItemsSource="{Binding Source=bonList}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Navn" x:Name="GVC_ProduktNavn">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding Path=Navn}"></Label>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Antal" x:Name="GVC_Antal">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding Path=Antal}"></Label>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Pris" x:Name="GVC_Pris">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding Path=Pris}"></Label>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            </Grid>
+            <Button x:Name="BTN_HentSetup" Content="Button" HorizontalAlignment="Left" Margin="348,10,0,0" VerticalAlignment="Top" Click="BTN_HentSetup_Click"/>
+        </Grid>
 
     </Grid>
 </Window>
