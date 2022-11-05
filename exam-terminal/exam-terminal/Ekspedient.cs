@@ -1,74 +1,59 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 
 namespace exam_terminal
 {
-    public class Produkt : INotifyPropertyChanged, ICloneable
+    public class Ekspedient : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        string _Navn;
-        public string Navn
+        int _id;
+        public int id
         {
             get
             {
-                return _Navn;
+                return _id;
             }
             set
             {
-                _Navn = value;
+                _id = value;
                 NotifyPropertyChanged();
             }
         }
-        int _antal;
-        public int antal
+        string _navn;
+        public string navn
         {
             get
             {
-                return _antal;
+                return _navn;
             }
             set
             {
-                _antal = value;
+                _navn = value;
                 NotifyPropertyChanged();
             }
         }
-        decimal _pris;
-        public decimal pris
+        string _kortnummer;
+        public string kortnummer
         {
             get
             {
-                return _pris;
+                return _kortnummer;
             }
             set
             {
-                _pris = value;
+                _kortnummer = value;
                 NotifyPropertyChanged();
             }
-        }
-        
-        public string firma_id
-        {
-            get { return DataStore.Firmaid; }
-        }
-        public int produktgruppe_id { get; set; }
-        public int id { get; set; }
-
-        public string Btn_Text
-        {
-            get { return Navn + "\r\n" + pris; }
         }
 
         public object Clone()
         {
             return MemberwiseClone();
         }
-        
+
     }
 }

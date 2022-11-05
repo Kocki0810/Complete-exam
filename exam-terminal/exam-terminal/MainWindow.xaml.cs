@@ -1,8 +1,12 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -22,20 +26,24 @@ namespace exam_terminal
     /// </summary>
     public partial class MainWindow : Window
     {
+       
         HentSetup setup = new HentSetup();
-        List<Produkt> bonList = new List<Produkt>();
+        ObservableCollection<Produkt> bonList = new ObservableCollection<Produkt>();
+        public static Ekspedient ekspeident = new Ekspedient();
+
         Produktgruppe CurrentShownGroup;
         public MainWindow()
         {
             DataContext = this;
             InitializeComponent();
             Debug.WriteLine("hej");
+            LV_Bonvindue.ItemsSource = bonList;
         }
-        private void BTN_HentSetup_Click(object sender, RoutedEventArgs e)
+        public void GetDataFromAPI()
         {
-            setup.GetSetup("1");
-            IC_Produktgrupper.ItemsSource = DataStore.Produktgrupper.Values.ToList();
-
+            setup.GetProdukter();
+            setup.GetEkspedienter(DataStore.Firmaid);
+            IC_Produktgrupper.ItemsSource = DataStore.OC_Produktgrupper;
         }
         private void BTN_Produktgruppe_Click(object sender, RoutedEventArgs e)
         {
@@ -43,25 +51,94 @@ namespace exam_terminal
             string tag = x.Tag.ToString();
             Debug.WriteLine(x.Tag);
             int id = Convert.ToInt32(tag);
-            if(DataStore.Produktgrupper.ContainsKey(id))
+            if(DataStore.OC_Produktgrupper.Where(x => x.id == id).Count() != 0)
             {
-                IC_Produkter.ItemsSource = DataStore.Produktgrupper[Convert.ToInt32(tag)].Produkter.Values.ToList();
-                CurrentShownGroup = DataStore.Produktgrupper[Convert.ToInt32(tag)];
+                IC_Produkter.ItemsSource = DataStore.OC_Produktgrupper.Where(x => x.id == id).First().Produkter.Values;
+                CurrentShownGroup = DataStore.OC_Produktgrupper.Where(x => x.id == id).First();
             }
         }
         private void BTN_Produkt_Click(object sender, RoutedEventArgs e)
         {
-            Button x = (Button)sender;
-            string tag = x.Tag.ToString();
-            Debug.WriteLine(x.Tag);
+            Button btn = (Button)sender;
+            string tag = btn.Tag.ToString();
+            Debug.WriteLine(btn.Tag);
             int id = Convert.ToInt32(tag);
+            Produkt produkt = (Produkt)CurrentShownGroup.Produkter[id].Clone();
+            int AmountToAdd;
+            if(!Int32.TryParse(TB_KeyboardInput.Text, out AmountToAdd))
+            {
+                AmountToAdd = 1;
+            }
             if (CurrentShownGroup.Produkter.ContainsKey(id))
             {
-                bonList.Add(CurrentShownGroup.Produkter[id]);
+                bool AlreadyExists = false;
+                foreach (Produkt p in bonList)
+                {
+                    if(p.id == produkt.id)
+                    {
+                        p.antal += AmountToAdd;
+                        p.pris = produkt.pris * p.antal;
+                        AlreadyExists = true;
+                        break;
+                    }
+                }
+                if(!AlreadyExists)
+                {
+                    produkt.antal += AmountToAdd;
+                    produkt.pris = produkt.antal * produkt.pris;
+                    bonList.Add(produkt);
+                }
             }
+            LV_Bonvindue.ScrollIntoView(produkt);
+            LB_OrdreSum_Tal.Content = bonList.Sum(p => p.pris).ToString();
+            TB_KeyboardInput.Text = "";
+        }
+        private void BTN_Numpad_Click(object sender, RoutedEventArgs e)
+        {
+            Button btn = (Button)sender;
+            if(btn.Tag.ToString() == "C")
+            {
+                TB_KeyboardInput.Text = "";
+                return;
+            }
+            else if(btn.Tag.ToString() == "ENT")
+            {
+                if(DataStore.Firmaid == "-1")
+                {
+                    DataStore.Firmaid = TB_KeyboardInput.Text;
+                    TB_KeyboardInput.Text = "";
+                    GetDataFromAPI();
+                    LB_indtast_firmaid.Visibility = Visibility.Hidden;
+                }
+                return;
+            }
+            TB_KeyboardInput.Text += btn.Tag.ToString();
 
-            LV_Bonvindue.Items.Add(CurrentShownGroup.Produkter[id]);
         }
 
+        private void BTN_LoadEkspedient_Click(object sender, RoutedEventArgs e)
+        {
+            Window_LoadEkspedient ekspedient_window = new Window_LoadEkspedient(this);
+            ekspedient_window.Show();
+
+            Debug.Write("test");
+        }
+
+        private void BTN_Slet_Produkt_BonList_Click(object sender, RoutedEventArgs e)
+        {
+            if(LV_Bonvindue.SelectedIndex != -1)
+            {
+                bonList.RemoveAt(LV_Bonvindue.SelectedIndex);
+            }
+            LB_OrdreSum_Tal.Content = bonList.Sum(p => p.pris).ToString();
+        }
+
+        private void BTN_Betal_Click(object sender, RoutedEventArgs e)
+        {
+            
+            
+            string x = JsonConvert.SerializeObject(bonList);
+            setup.SendBetaling(bonList);
+        }
     }
 }
