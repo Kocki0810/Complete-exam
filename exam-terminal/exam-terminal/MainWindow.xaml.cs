@@ -139,6 +139,7 @@ namespace exam_terminal
             
             string x = JsonConvert.SerializeObject(bonList);
             setup.SendBetaling(bonList);
+            bonList.Clear();
         }
     }
 }

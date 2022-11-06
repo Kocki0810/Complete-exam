@@ -3,7 +3,7 @@
 namespace App\Filters;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Hash;
 class ApiFilter {
 
 
@@ -89,7 +89,7 @@ class ApiFilter {
                 {
                     continue;
                 }
-                $column = $this->columnMap[$param] ?? $param;
+                $column = $this->columnMap[$param] ?? $param;     
                 foreach($operators as $operator => $value)
                 {
                     if(isset($operators[$operator]))

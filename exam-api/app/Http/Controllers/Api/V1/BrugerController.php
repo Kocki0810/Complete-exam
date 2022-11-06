@@ -8,6 +8,7 @@ use App\Http\Requests\UpdatebrugerRequest;
 use App\Models\bruger;
 use App\Http\Resources\V1\BrugerResource;
 use App\Http\Resources\V1\BrugerCollection;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
 use App\Filters\V1\BrugerFilter;
 
@@ -27,7 +28,22 @@ class BrugerController extends Controller
         $queryItems = $query['dataCollection'];
         $includes = $query['includeCollection'];
         
-        if(count($includes) == 0)
+        
+        if(isset($request->get('email')['eq']))
+        {
+            $password = $request->get('password')['eq'];
+            $email = $request->get('email')['eq'];
+            $bruger = bruger::where('email', $email);
+            if(isset($bruger->pluck("password")[0]))
+            {
+                $hashedPassword = $bruger->pluck("password")[0];
+                if(!Hash::check($password, $hashedPassword))
+                {
+                    return [];
+                }
+            }
+        }
+        elseif(count($includes) == 0)
         {
             $bruger = bruger::where($queryItems);
         }
@@ -35,7 +51,6 @@ class BrugerController extends Controller
         {
             $bruger = bruger::where($queryItems)->with($includes);
         }
-        
         return new BrugerCollection($bruger->get());
     }
 
@@ -61,10 +76,10 @@ class BrugerController extends Controller
         $data = collect($request->all());
         foreach($data["data"] as $column)
         {
+            $column["password"] = Hash::make($column["password"]);
             $newColumn = new BrugerResource(bruger::create($column));
             $insertedRows[] = $newColumn->id;
         }
-
         return $insertedRows;
     }
 
@@ -102,6 +117,7 @@ class BrugerController extends Controller
         $data = collect($request->all());
         foreach($data as $column)
         {
+            $column["password"] = Hash::make($column["password"]);
             bruger::where("id", $column['id'])->update($column);
         }
     }

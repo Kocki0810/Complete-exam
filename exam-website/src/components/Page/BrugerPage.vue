@@ -87,7 +87,6 @@ export default {
                 }
                 if(value.bruger?.Changed)
                 {
-                    console.log(key);
                     var bruger = {
                         id: value.bruger.id,
                         email: value.bruger.email,
