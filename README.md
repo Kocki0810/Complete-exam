@@ -1,8 +1,4 @@
 # Complete-exam
-Hej dette er mit svendeprøve projekt, lavet af Mads Konstmann Kock
-
-Hvis i vil teste lokalt skal i installere docker og køre scriptet setup.exe
-
 
 Database Info:
 image: mysql

@@ -66,7 +66,7 @@ namespace exam_terminal
             }
         }
 
-        async public void SendBetaling(ObservableCollection<Produkt> bonList)
+        async public void SendBetaling(Produkt[] bonList)
         {
 
             object ordre = new

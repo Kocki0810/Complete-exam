@@ -135,10 +135,10 @@ namespace exam_terminal
 
         private void BTN_Betal_Click(object sender, RoutedEventArgs e)
         {
-            
-            
-            string x = JsonConvert.SerializeObject(bonList);
-            setup.SendBetaling(bonList);
+
+            Produkt[] produkts = new Produkt[bonList.Count];
+            bonList.CopyTo(produkts, 0);
+            setup.SendBetaling(produkts);
             bonList.Clear();
         }
     }
