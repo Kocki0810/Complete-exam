@@ -22,6 +22,7 @@ namespace exam_terminal
     {
         public string kortnummer;
         MainWindow window;
+        public string result;
         public Window_LoadEkspedient(MainWindow window)
         {
             this.window = window;
@@ -34,6 +35,12 @@ namespace exam_terminal
         {
             kortnummer = TB_Kortnummer.Text.Substring(1, TB_Kortnummer.Text.Length-2);
             MainWindow.ekspeident = DataStore.LoadEkspedientByKortnr(kortnummer);
+            if(MainWindow.ekspeident == null)
+            {
+                //bla bla
+                LB_Result.Content = "Kan ikke finde ekspedient med det nummer";
+                return;
+            }
             window.LB_Ekspedient_Navn.Content = "Ekspedient: " + MainWindow.ekspeident.navn;
             Close();
         }

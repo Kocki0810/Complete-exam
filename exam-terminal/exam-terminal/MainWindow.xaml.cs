@@ -42,14 +42,14 @@ namespace exam_terminal
         public void GetDataFromAPI()
         {
             setup.GetProdukter();
-            setup.GetEkspedienter(DataStore.Firmaid);
+            setup.GetEkspedienter();
             IC_Produktgrupper.ItemsSource = DataStore.OC_Produktgrupper;
         }
         private void BTN_Produktgruppe_Click(object sender, RoutedEventArgs e)
         {
-            Button x = (Button)sender;
-            string tag = x.Tag.ToString();
-            Debug.WriteLine(x.Tag);
+            Button btn = (Button)sender;
+            string tag = btn.Tag.ToString();
+            Debug.WriteLine(btn.Tag);
             int id = Convert.ToInt32(tag);
             if(DataStore.OC_Produktgrupper.Where(x => x.id == id).Count() != 0)
             {
@@ -140,6 +140,16 @@ namespace exam_terminal
             bonList.CopyTo(produkts, 0);
             setup.SendBetaling(produkts);
             bonList.Clear();
+            LB_OrdreSum_Tal.Content = "";
+        }
+
+        private void BTN_ReloadData_Click(object sender, RoutedEventArgs e)
+        {
+            DataStore.OC_Produktgrupper.Clear();
+            IC_Produkter.ItemsSource = null;
+            bonList.Clear();
+            LB_OrdreSum_Tal.Content = "";
+            GetDataFromAPI();
         }
     }
 }

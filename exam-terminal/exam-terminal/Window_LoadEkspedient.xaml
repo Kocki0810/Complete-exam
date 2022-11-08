@@ -9,5 +9,6 @@
     <Grid>
         <TextBox x:Name="TB_Kortnummer" HorizontalAlignment="Left" Margin="280,148,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="275" Height="34" FontSize="22"/>
         <Button x:Name="BTN_OK" Content="Hent" HorizontalAlignment="Left" Margin="387,244,0,0" VerticalAlignment="Top" Click="BTN_OK_Click"/>
+        <Label x:Name="LB_Result" HorizontalAlignment="Left" Margin="296,81,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>

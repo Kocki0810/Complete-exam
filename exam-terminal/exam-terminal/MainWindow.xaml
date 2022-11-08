@@ -77,13 +77,14 @@
                     <Button Tag="ENT" Click="BTN_Numpad_Click" Content="ENT" HorizontalAlignment="Left" VerticalAlignment="Top" Height="80" Width="80" Canvas.Left="180" Canvas.Top="262"/>
                     <TextBox HorizontalAlignment="Center" Name="TB_KeyboardInput" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="260" Height="46" Canvas.Top="-61" FontSize="36"/>
                 </Canvas>
-                <Button x:Name="BTN_LoadEkspedient" Content="Hent&#10;ekspedient" HorizontalAlignment="Left" Margin="760,435,0,0" Height="80" Width="90" VerticalAlignment="Top" Click="BTN_LoadEkspedient_Click" FontSize="16" FontWeight="Normal"/>
+                <Button x:Name="BTN_LoadEkspedient" Content="Hent&#10;Ekspedient" HorizontalAlignment="Left" Margin="760,435,0,0" Height="80" Width="90" VerticalAlignment="Top" Click="BTN_LoadEkspedient_Click" FontSize="16" FontWeight="Normal"/>
                 <Label x:Name="LB_Ekspedient_Navn" HorizontalAlignment="Left" Margin="750,-5,0,0" VerticalAlignment="Top"/>
                 <Label x:Name="LB_OrdreSum" Content="Sum:" HorizontalAlignment="Left" Margin="750,15,0,0" VerticalAlignment="Top"/>
                 <Label x:Name="LB_OrdreSum_Tal" HorizontalAlignment="Left" Margin="785,15,0,0" VerticalAlignment="Top"/>
                 <Button x:Name="BTN_Slet" Content="Slet" HorizontalAlignment="Left" Margin="855,435,0,0" Height="80" Width="90" VerticalAlignment="Top" Click="BTN_Slet_Produkt_BonList_Click" FontSize="16" FontWeight="Normal"/>
                 <Button x:Name="BTN_Betal" Content="Betal" HorizontalAlignment="Left" Margin="950,435,0,0" Height="80" Width="90" VerticalAlignment="Top" Click="BTN_Betal_Click" FontSize="16" FontWeight="Normal"/>
                 <Label x:Name="LB_indtast_firmaid" Content="Indtast firamid på tastaturet og tryk ENT for at logge ind ->" HorizontalAlignment="Left" Margin="458,728,0,0" VerticalAlignment="Top" Height="89" Width="594" FontSize="20"/>
+                <Button x:Name="BTN_ReloadData" Content="Hent&#xA;Opsætning" HorizontalAlignment="Left" Margin="128,722,0,0" Height="80" Width="90" VerticalAlignment="Top" Click="BTN_ReloadData_Click" FontSize="16" FontWeight="Normal"/>
             </Grid>
         </Grid>
 

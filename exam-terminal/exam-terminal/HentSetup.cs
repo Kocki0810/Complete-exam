@@ -51,8 +51,9 @@ namespace exam_terminal
             }
         }
 
-        async public void GetEkspedienter(string firmaid)
+        async public void GetEkspedienter()
         {
+            DataStore.OC_Ekspedienter.Clear();
             using HttpClient http = new HttpClient();
             HttpResponseMessage response = await http.GetAsync(new Uri(GetUrl("ekspedient", new string[] { })));
             string content = await response.Content.ReadAsStringAsync();
