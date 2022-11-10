@@ -17,6 +17,7 @@ namespace exam_terminal
 {
     public class HentSetup
     {
+        private static string token = "FinalExamBearerToken";
         public string GetUrl(string table, string[] includes)
         {
             string include = includes.Aggregate("", (a, b) => a + "&include" + b.ToLower() + "=1");
@@ -83,6 +84,7 @@ namespace exam_terminal
 
             StringContent ordreContent = new StringContent(JsonConvert.SerializeObject(wrapper), Encoding.UTF8, "application/json");
             HttpRequestMessage OrdreRequestMessage = new HttpRequestMessage(HttpMethod.Post, new Uri(PostUrl("ordre")));
+            OrdreRequestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
             OrdreRequestMessage.Content = ordreContent;
             HttpClient client = new HttpClient();
             HttpResponseMessage OrdreResponse = await client.SendAsync(OrdreRequestMessage);
@@ -101,6 +103,7 @@ namespace exam_terminal
 
             StringContent linjeContent = new StringContent(JsonConvert.SerializeObject(temp), Encoding.UTF8, "application/json");
             HttpRequestMessage LinjeRequestMessage = new HttpRequestMessage(HttpMethod.Post, new Uri(PostUrl("linje")));
+            LinjeRequestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
             LinjeRequestMessage.Content = linjeContent;
 
             var ordreIDer = await OrdreResponse.Content.ReadAsStringAsync();

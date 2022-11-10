@@ -120,8 +120,6 @@ namespace exam_terminal
         {
             Window_LoadEkspedient ekspedient_window = new Window_LoadEkspedient(this);
             ekspedient_window.Show();
-
-            Debug.Write("test");
         }
 
         private void BTN_Slet_Produkt_BonList_Click(object sender, RoutedEventArgs e)

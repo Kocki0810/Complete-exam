@@ -89,7 +89,8 @@ export default {
         controller.abort();
     },
     props: {
-        firma_id: Number
+        firma_id: Number,
+        bearerToken: String
     },
     components: {
         ProduktItem,
@@ -192,16 +193,17 @@ export default {
                 axios({
                     method: 'PATCH',
                     url: 'http://localhost:8000/api/v1/produkt/update',
-                    headers: {}, 
+                    headers: {Authorization: 'Bearer ' + this.bearerToken}, 
                     data: ProduktValuesToSubmit
                 });
+               
             }
             if(ProduktGruppeValuesToSubmit.length > 0)
             {
                 axios({
                     method: 'PATCH',
                     url: 'http://localhost:8000/api/v1/produktgruppe/update',
-                    headers: {}, 
+                    headers: {Authorization: 'Bearer ' + this.bearerToken}, 
                     data: ProduktGruppeValuesToSubmit
                 });
             }
@@ -238,12 +240,11 @@ export default {
                     }
                     toDelete.push(temp);
                 })
-                console.log(toDelete)
 
                 axios({
                     method: 'DELETE',
                     url: 'http://localhost:8000/api/v1/produkt/delete',
-                    headers: {}, 
+                    headers: {Authorization: 'Bearer ' + this.bearerToken}, 
                     data: toDelete
                 });
             }
@@ -251,7 +252,7 @@ export default {
             axios({
                     method: 'DELETE',
                     url: 'http://localhost:8000/api/v1/produktgruppe/delete',
-                    headers: {}, 
+                    headers: {Authorization: 'Bearer ' + this.bearerToken}, 
                     data: pgID
             });
         },
@@ -274,7 +275,7 @@ export default {
             axios({
                     method: 'PATCH',
                     url: 'http://localhost:8000/api/v1/produkt/update',
-                    headers: {}, 
+                    headers: {Authorization: 'Bearer ' + this.bearerToken}, 
                     data: FlytProdukter
             });
             
@@ -287,7 +288,7 @@ export default {
             axios({
                 method: 'DELETE',
                 url: 'http://localhost:8000/api/v1/produkt/delete',
-                headers: {}, 
+                headers: {Authorization: 'Bearer ' + this.bearerToken}, 
                 data: [{id:produktID}]
             });
         },
@@ -302,6 +303,9 @@ export default {
 
             axios.post('http://localhost:8000/api/v1/produkt', {
                 0 :produkt 
+            }, 
+            {
+                headers: {Authorization: 'Bearer ' + this.bearerToken}
             })
             .then((response) => {
                 produkt.id = response.data[0];
@@ -319,6 +323,9 @@ export default {
 
             axios.post('http://localhost:8000/api/v1/produktgruppe', {
                 0 :produktgruppe
+            },
+            {
+                headers: {Authorization: 'Bearer ' + this.bearerToken}
             })
             .then((response) => {
                 produktgruppe.id = response.data[0];

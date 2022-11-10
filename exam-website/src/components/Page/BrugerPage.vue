@@ -47,7 +47,8 @@ export default {
         BrugerItem
     },
     props: {
-        firma_id: Number
+        firma_id: Number,
+        bearerToken: String
     },
     data() {
         return {
@@ -112,7 +113,7 @@ export default {
                 axios({
                     method: 'PATCH',
                     url: 'http://localhost:8000/api/v1/ekspedient/update',
-                    headers: {}, 
+                    headers: {Authorization: 'Bearer '+this.bearerToken}, 
                     data: EkspedientToSubmit
                 });
             }
@@ -121,7 +122,7 @@ export default {
                 axios({
                     method: 'PATCH',
                     url: 'http://localhost:8000/api/v1/bruger/update',
-                    headers: {}, 
+                    headers: {Authorization: 'Bearer '+this.bearerToken}, 
                     data: BrugerToSubmit
                 });
             }
@@ -129,7 +130,10 @@ export default {
             {
                 var brugerID = [];
                 axios.post('http://localhost:8000/api/v1/bruger', {
-                    data: BrugerToCreate.brugere
+                    data: BrugerToCreate.brugere,
+                },
+                {
+                    headers: {Authorization: 'Bearer ' + this.bearerToken}
                 })
                 .then(response => {
                     brugerID = response?.data
@@ -150,7 +154,7 @@ export default {
             axios({
                 method: 'DELETE',
                 url: 'http://localhost:8000/api/v1/bruger/delete',
-                headers: {}, 
+                headers: {Authorization: 'Bearer '+this.bearerToken}, 
                 data: [{id: brugerID}]
             });
         },
@@ -160,7 +164,7 @@ export default {
             axios({
                 method: 'DELETE',
                 url: 'http://localhost:8000/api/v1/ekspedient/delete',
-                headers: {}, 
+                headers: {Authorization: 'Bearer '+this.bearerToken}, 
                 data: [{id: ekspedientID}]
             });
         },
@@ -209,6 +213,9 @@ export default {
 
             axios.post('http://localhost:8000/api/v1/ekspedient', {
                 0 :ekspedient
+            },
+            {
+                headers: {Authorization: 'Bearer ' + this.bearerToken}
             })
             .then((response) => {
                 ekspedient.id = response.data[0];

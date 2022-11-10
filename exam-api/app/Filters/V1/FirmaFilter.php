@@ -10,8 +10,7 @@ class FirmaFilter extends ApiFilter {
     protected $allowInclude = [
         'ekspedient',
         'bruger',
-        'linje',
-        'oredre',
+        'ordre',
         'produkt',
         'produktgruppe'
     ];

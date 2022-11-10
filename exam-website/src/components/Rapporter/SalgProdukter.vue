@@ -41,7 +41,7 @@ export default {
             labels: [],
             datasets: [ 
             { 
-                label: 'Salg i kroner pr produkt',
+                label: 'Salg i kroner per produkt',
                 backgroundColor: '#f87979',
                 data: [] 
             }]

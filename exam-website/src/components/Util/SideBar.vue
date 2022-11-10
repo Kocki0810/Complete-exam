@@ -1,9 +1,17 @@
 <template>
     <div>
-        <div class="">
-            <p @click="this.$emit('Update-Page', 'StartPage')">Start</p>
-            <p @click="this.$emit('Update-Page', 'ProduktgruppePage')">Produktgrupper</p>
-            <p @click="this.$emit('Update-Page', 'EkspedientPage')">Ekspedienter</p>
+        <div>
+            <p class="btn btn-primary rounded-0" @click="this.$emit('Update-Page', 'StartPage')">Start</p>
+            <p class="btn btn-primary rounded-0" v-if="this.firma_id != ''" @click="this.$emit('Update-Page', 'ProduktgruppePage')">Produktgrupper</p>
+            <p class="btn btn-primary rounded-0" v-if="this.firma_id != ''" @click="this.$emit('Update-Page', 'EkspedientPage')">Ekspedienter</p>
         </div>
     </div>
 </template>
+<script>
+export default {
+
+    props: {
+        firma_id: String
+    }
+}
+</script>

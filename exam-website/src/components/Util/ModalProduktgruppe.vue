@@ -24,8 +24,8 @@ export default {
             <slot name="select"></slot><button class="btn btn-primary col-md-auto m-2" @click="$emit('Flyt-Produkter')">Flyt</button>
           </div>
           <br>
-          <div>
-            <p>Eller slet alle produkterne sammen med gruppen (kan genskabes)</p>
+          <div> 
+            <p>Eller slet alle produkterne sammen med gruppen</p>
             <button
             class="btn btn-danger col-md-auto m-2"
             type="button"

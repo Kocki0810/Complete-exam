@@ -28,7 +28,14 @@ namespace exam_terminal
             this.window = window;
             DataContext = this;
             InitializeComponent();
+            IC_Ekspedienter.DataContext = DataStore.OC_Ekspedienter;
+            IC_Ekspedienter.ItemsSource = DataStore.OC_Ekspedienter;
+
             TB_Kortnummer.Focus();
+        }
+        private void BTN_Ekspedient_Click(object sender, RoutedEventArgs e)
+        {
+
         }
 
         private void BTN_OK_Click(object sender, RoutedEventArgs e)

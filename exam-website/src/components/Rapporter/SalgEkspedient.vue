@@ -14,7 +14,6 @@ import BarChart from './BarChart.vue'
 export default {
     created() {
         this.CreateRapport();
-        console.log("created");
     },
     props: {
         ordre: Array,
@@ -52,14 +51,10 @@ export default {
         var Data = [];
         var names = [];
         var labels = [];
-        console.log(toRaw(this.Ekspedienter));
-        // this.ordre.forEach(ordre => {
-        //     Data[ordre.ekspedient_id]
-        // })
+
         this.Ekspedienter.data.forEach((element) => {
             names[element.id] = element.navn;
         })
-        console.log(names);
         
         this.ordre.data.forEach((element) => {
             var name = names[element.ekspedient_id];
@@ -80,10 +75,8 @@ export default {
         chartData.labels.push(element);
         FinalData.push(Data[element])
         })
-        console.log(Data);
         chartData.datasets[0].data = FinalData;
         this.chartData = chartData;
-        // this.chartData.datasets.data = FinalData;
     },
   }
 }

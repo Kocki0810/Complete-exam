@@ -13,7 +13,8 @@ class UpdateordreRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return $this->bearerToken() == "FinalExamBearerToken";
+
     }
 
     /**

@@ -1,24 +1,20 @@
 <template>
-    <div class="container-fluid row">
+    <div class="row mh-100">
         
-        <div class="col-sm-1 text-start">
-            <SideBar @Update-Page="ChangePage"></SideBar>
+        <div class="col-lg-1 text-start">
+            <SideBar :firma_id="this.firma_id" @Update-Page="ChangePage"></SideBar>
         </div>
-        <div class="col-sm-11 d-flex justify-content-center text-start" v-if="this.firma_id == ''">
+        <div class="col-lg-11 d-flex justify-content-center text-start" v-if="this.firma_id == ''">
             <LoginPage @Login="Login"></LoginPage>
         </div>
-        <div class="col-sm-11 d-flex justify-content-center text-start" v-if="this.firma_id != '' && this.MainPage == 'StartPage'">
+        <div class="col-lg-11 justify-content-center text-start" v-if="this.firma_id != '' && this.MainPage == 'StartPage'">
             <StartPage :bruger="this.bruger"></StartPage>
         </div>
-        <div v-if="this.MainPage == 'ProduktgruppePage'" class="col-sm-11 d-flex justify-content-center">
-            <div class="ProduktgruppePage">
-                <ProduktgruppePage :firma_id="this.firma_id"/>
-            </div>
+        <div v-if="this.MainPage == 'ProduktgruppePage'" class="col-lg-11 d-flex justify-content-center">
+            <ProduktgruppePage :bearerToken="'FinalExamBearerToken'" :firma_id="this.firma_id"/>
         </div>
-        <div v-if="this.MainPage == 'EkspedientPage'" class="col-sm-11 d-flex justify-content-center">
-            <div  class="BrugePage">
-                <BrugerPage :firma_id="this.firma_id"></BrugerPage>
-            </div>
+        <div v-if="this.MainPage == 'EkspedientPage'" class="col-lg-11 d-flex justify-content-center">
+            <BrugerPage :bearerToken="'FinalExamBearerToken'" :firma_id="this.firma_id"></BrugerPage>
         </div>
     </div>
 </template>

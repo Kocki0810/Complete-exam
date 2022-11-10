@@ -1,15 +1,20 @@
 <template>
-    <div class="row">
-        <p>Ekspedient navn: {{bruger.navn}}</p>
-        <span>Email: {{bruger.email}}</span>
+    <div>
+        <div class="row">
+            <p class="col-lg-12  d-flex justify-content-center">Ekspedient navn: {{bruger.navn}}</p>
+        </div>
+        <div class="row">
+            <p class="col-lg-12 d-flex justify-content-center">Email: {{bruger.email}}</p>
+        </div>
     </div>
     <div>
-        <SalgProdukter v-if="this.Produkterloaded" :ordre="ordre" :linjer="linjer"></SalgProdukter>
+        <div col="row">
+            <div class="col-lg-12 d-flex justify-content-center">
+                <SalgProdukter v-if="this.Produkterloaded" :ordre="ordre" :linjer="linjer"></SalgProdukter>
+                <SalgEkspedient v-if="this.EkspedienterLoaded" :Ekspedienter="Ekspedienter" :ordre="ordre"></SalgEkspedient>
+            </div>
+        </div>
     </div>
-    <div>
-        <SalgEkspedient v-if="this.EkspedienterLoaded" :Ekspedienter="Ekspedienter" :ordre="ordre"></SalgEkspedient>
-    </div>
-
 </template>
 
 <script>
