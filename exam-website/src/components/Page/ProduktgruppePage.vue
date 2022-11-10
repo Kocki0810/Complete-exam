@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div :key="this.reRender">
         <Teleport to="body">
         <modalPgDelete @click="ModalTjek" :p_show="showModal" @Flyt-Produkter="FlytProdukter" @Delete-Produktgruppe="DeleteProduktgruppe" @close="showModal = false">
         <template #header>
@@ -17,8 +17,8 @@
         </template>
         </modalPgDelete>
         </Teleport>
-        <div>
-            <button type="button" class="btn btn-primary col-md-auto m-2" @click="SubmitProduktForm">submit</button>
+        <div class="sticky-top">
+            <button type="button" class="btn btn-primary col-md-auto m-2" @click="SubmitProduktForm">Gem</button>
         </div>
         <div>
             <form class="form-group" @submit.prevent v:model="ProduktForm">
@@ -115,7 +115,8 @@ export default {
                 FlytProdukterID: -1,
                 FlytFraIndeks: -1,
                 FlytFraGruppeID: -1
-            }
+            },
+            reRender: 0
         }
     },
     methods: {
@@ -188,6 +189,7 @@ export default {
                     
                 });
             }
+            this.reRender++;
             if(ProduktValuesToSubmit.length > 0)
             {
                 axios({
@@ -255,6 +257,7 @@ export default {
                     headers: {Authorization: 'Bearer ' + this.bearerToken}, 
                     data: pgID
             });
+            this.showModal = false;
         },
         FlytProdukter()
         {
@@ -278,7 +281,7 @@ export default {
                     headers: {Authorization: 'Bearer ' + this.bearerToken}, 
                     data: FlytProdukter
             });
-            
+            this.showModal = false;
             this.DeleteProduktgruppe(false);
         },
         DelteProdukt(produktID, index, gruppeIndex){
@@ -309,6 +312,10 @@ export default {
             })
             .then((response) => {
                 produkt.id = response.data[0];
+                if(this.produktgrupper.data[gruppeIndex].produkt == undefined)
+                {
+                    this.produktgrupper.data[gruppeIndex].produkt = [produkt];
+                }
                 this.produktgrupper.data[gruppeIndex].produkt.push(produkt);
             })
             this.NewProdukt.navn = "";

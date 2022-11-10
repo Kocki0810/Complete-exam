@@ -2,13 +2,13 @@
     <div class="row mh-100">
         
         <div class="col-lg-1 text-start">
-            <SideBar :firma_id="this.firma_id" @Update-Page="ChangePage"></SideBar>
+            <SideBar :MainPage="this.MainPage" :Produktgrupper="ProdActive" :Ekspedient="EksActive" :firma_id="this.firma_id" @Update-Page="ChangePage"></SideBar>
         </div>
         <div class="col-lg-11 d-flex justify-content-center text-start" v-if="this.firma_id == ''">
             <LoginPage @Login="Login"></LoginPage>
         </div>
         <div class="col-lg-11 justify-content-center text-start" v-if="this.firma_id != '' && this.MainPage == 'StartPage'">
-            <StartPage :bruger="this.bruger"></StartPage>
+            <StartPage  :bruger="this.bruger"></StartPage>
         </div>
         <div v-if="this.MainPage == 'ProduktgruppePage'" class="col-lg-11 d-flex justify-content-center">
             <ProduktgruppePage :bearerToken="'FinalExamBearerToken'" :firma_id="this.firma_id"/>

@@ -14,7 +14,7 @@
         placeholder="Kortnummer"
         class="form-control col-sm"
         />
-        <button type="button" class="btn btn-primary col-md-auto m-2" @click="SletEkspedient">Slet Ekspedient</button>
+        <button type="button" class="btn btn-danger col-md-auto m-2" @click="SletEkspedient">Slet Ekspedient</button>
     </div>
     <div class="form-group row m-2">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="max" fill="currentColor" class="bi bi-dot col-md-auto" viewBox="0 0 16 16">
@@ -23,13 +23,14 @@
         <input
         :value="this.bruger?.email"
         @input="m_Email"
-        placeholder="Kortnummer"
+        placeholder="Email"
         class="form-control col-sm"
         />
         <input
         :value="this.bruger?.password"
         @input="m_Password"
-        placeholder="Navn"
+        placeholder="Password"
+        type="password"
         class="form-control col-sm"
         />
         <input
@@ -38,7 +39,7 @@
         placeholder="Telefon"
         class="form-control col-sm"
         />
-        <button type="button" class="btn btn-primary col-md-auto m-2"  @click="SletBruger">Slet Bruger</button>
+        <button type="button" class="btn btn-danger col-md-auto m-2"  @click="SletBruger">Slet Bruger</button>
     </div>
 </div>
 </template>
@@ -60,7 +61,8 @@ export default {
             bruger: this.p_Bruger,
             EksNavn: this.p_Eks_Navn,
             EksKortnummer: this.p_Eks_Kortnummer,
-            EksID: this.p_Eks_ID
+            EksID: this.p_Eks_ID,
+            id: this.p_Eks_ID
         }
   },
   methods: {
@@ -81,7 +83,7 @@ export default {
         },
         SletEkspedient()
         {
-            this.$emit("Delete-ekspedient", this.EksID, this.index);
+            this.$emit("Delete-ekspedient", this.EksID, this.p_Index);
         },
         SletBruger()
         {

@@ -1,7 +1,7 @@
-<template>
+<template :key="this.reload">
     <div>
-        <div>
-            <button type="button" class="btn btn-primary col-md-auto m-2" @click="SubmitEkspedientForm">submit</button>
+        <div class="sticky-top">
+            <button type="button" class="btn btn-primary col-md-auto m-2" @click="SubmitEkspedientForm">Gem</button>
         </div>
         <div>
             <form class="form-group" @submit.prevent v:model="BrugerForm">
@@ -58,6 +58,7 @@ export default {
                 navn: "", 
                 kortnummer: "",
             },
+            reload: 0
         }
     },
     methods: {
@@ -142,6 +143,7 @@ export default {
                     })
                 });
             }
+            this.reload++;
         },
         DeletBruger(index){
             var brugerID = this.Ekspedienter.data[index].bruger.id;
@@ -157,6 +159,7 @@ export default {
                 headers: {Authorization: 'Bearer '+this.bearerToken}, 
                 data: [{id: brugerID}]
             });
+            this.reload++;
         },
         DeletEkspedient(ekspedientID, index){
             this.Ekspedienter.data.splice(index, 1);
@@ -167,6 +170,7 @@ export default {
                 headers: {Authorization: 'Bearer '+this.bearerToken}, 
                 data: [{id: ekspedientID}]
             });
+            this.reload++;
         },
         ChangeInputBruger(index, type, value){
             var copy = toRaw(this.Ekspedienter.data[index]);
@@ -223,6 +227,7 @@ export default {
             })
             this.NewEkspedient.navn = "";
             this.NewEkspedient.kortnummer = "";
+            this.reload++;
         }
     }
 }
