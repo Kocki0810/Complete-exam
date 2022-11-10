@@ -35,7 +35,8 @@ namespace exam_terminal
         }
         private void BTN_Ekspedient_Click(object sender, RoutedEventArgs e)
         {
-
+            Button btn = (Button)sender;
+            MainWindow.ekspeident = DataStore.LoadEkspedientByKortnr(btn.Tag.ToString());
         }
 
         private void BTN_OK_Click(object sender, RoutedEventArgs e)
@@ -44,7 +45,6 @@ namespace exam_terminal
             MainWindow.ekspeident = DataStore.LoadEkspedientByKortnr(kortnummer);
             if(MainWindow.ekspeident == null)
             {
-                //bla bla
                 LB_Result.Content = "Kan ikke finde ekspedient med det nummer";
                 return;
             }

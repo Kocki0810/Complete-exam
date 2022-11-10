@@ -37,18 +37,5 @@ namespace exam_terminal.Test
             Assert.That(produkter.Length, Is.GreaterThan(0));
             mainWindow.FindFirstDescendant(cf.ByName("BTN_HentSetup"));
         }
-        //[Test, Order(2)]
-        //public void TestProduktButton()
-        //{
-        //    var automation = new UIA3Automation();
-        //    var mainWindow = msApplication.GetMainWindow(automation);
-
-        //    ConditionFactory cf = new ConditionFactory(new UIA3PropertyLibrary());
-        //    var ProduktgruppeButton = mainWindow.FindFirstChild(cf.ByName("Schaden Ltd")).AsButton();
-        //    ProduktgruppeButton.Click();
-        //    var produkter = mainWindow.FindAll(FlaUI.Core.Definitions.TreeScope.Children, cf.ByHelpText("BTN_Produkt"));
-        //    Assert.That(produkter.Length, Is.GreaterThan(0));
-        //    mainWindow.FindFirstDescendant(cf.ByName("BTN_HentSetup"));
-        //}
     }
 }

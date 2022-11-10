@@ -13,7 +13,7 @@
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="187*"/>
             </Grid.ColumnDefinitions>
-            <Canvas x:Name="CV_Produktgrupper" Margin="0,0,0,674" Background="Black" Grid.ColumnSpan="3" Height="267" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="750">
+            <Canvas x:Name="CV_Produktgrupper" Margin="0,0,0,674" Background="LightGray" Grid.ColumnSpan="3" Height="267" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="750">
                 <ItemsControl x:Name="IC_Produktgrupper">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
@@ -24,7 +24,7 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </Canvas>
-            <Canvas x:Name="CV_Produkter" Margin="0,310,0,0" Background="#FFCE1C1C" Height="372" VerticalAlignment="Top" HorizontalAlignment="Left" Width="750" Grid.ColumnSpan="3">
+            <Canvas x:Name="CV_Produkter" Margin="0,364,0,0" Height="372" VerticalAlignment="Top" HorizontalAlignment="Left" Width="750" Grid.ColumnSpan="3">
                 <ItemsControl x:Name="IC_Produkter">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
@@ -83,8 +83,8 @@
                 <Label x:Name="LB_OrdreSum_Tal" HorizontalAlignment="Left" Margin="785,15,0,0" VerticalAlignment="Top"/>
                 <Button x:Name="BTN_Slet" Content="Slet" HorizontalAlignment="Left" Margin="855,435,0,0" Height="80" Width="90" VerticalAlignment="Top" Click="BTN_Slet_Produkt_BonList_Click" FontSize="16" FontWeight="Normal"/>
                 <Button x:Name="BTN_Betal" Content="Betal" HorizontalAlignment="Left" Margin="950,435,0,0" Height="80" Width="90" VerticalAlignment="Top" Click="BTN_Betal_Click" FontSize="16" FontWeight="Normal"/>
-                <Label x:Name="LB_indtast_firmaid" Content="Indtast firamid på tastaturet og tryk ENT for at logge ind ->" HorizontalAlignment="Left" Margin="458,728,0,0" VerticalAlignment="Top" Height="89" Width="594" FontSize="20"/>
-                <Button x:Name="BTN_ReloadData" Content="Hent&#xA;Opsætning" HorizontalAlignment="Left" Margin="128,722,0,0" Height="80" Width="90" VerticalAlignment="Top" Click="BTN_ReloadData_Click" FontSize="16" FontWeight="Normal"/>
+                <Label x:Name="LB_indtast_firmaid" Content="Indtast firamid på tastaturet og tryk ENT for at logge ind ->" HorizontalAlignment="Left" Margin="458,791,0,0" VerticalAlignment="Top" Height="89" Width="594" FontSize="20"/>
+                <Button x:Name="BTN_ReloadData" Content="Hent&#xA;Opsætning" HorizontalAlignment="Left" Margin="760,334,0,0" Height="80" Width="90" VerticalAlignment="Top" Click="BTN_ReloadData_Click" FontSize="16" FontWeight="Normal"/>
             </Grid>
         </Grid>
 
