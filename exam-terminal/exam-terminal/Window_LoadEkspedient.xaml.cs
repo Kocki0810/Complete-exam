@@ -35,7 +35,16 @@ namespace exam_terminal
         }
         private void BTN_Ekspedient_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                Button btn = (Button)sender;
+                MainWindow.ekspeident = DataStore.LoadEkspedientByKortnr(btn.Tag.ToString());
+            }
+            catch (Exception)
+            {
 
+            }
+            Close();
         }
 
         private void BTN_OK_Click(object sender, RoutedEventArgs e)
