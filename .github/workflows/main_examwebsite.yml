@@ -57,4 +57,4 @@ jobs:
           app-name: 'examwebsite'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_D2AD1BE9DE99417694808492AE158C12 }}
-          package: .
+          package: /exam-api
