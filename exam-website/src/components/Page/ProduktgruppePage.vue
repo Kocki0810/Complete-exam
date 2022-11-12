@@ -138,7 +138,7 @@ export default {
         },
         getProdukter: function() {
             axios
-            .get('http://localhost:8000/api/v1/produktgruppe?id[gt]=0&includeprodukt=1', controller.signal)
+            .get('https://examwebsite.azurewebsites.net/api/v1/produktgruppe?id[gt]=0&includeprodukt=1', controller.signal)
             .then(response => (this.produktgrupper = response?.data));
         },
         SubmitProduktForm: function(){
@@ -194,7 +194,7 @@ export default {
             {
                 axios({
                     method: 'PATCH',
-                    url: 'http://localhost:8000/api/v1/produkt/update',
+                    url: 'https://examwebsite.azurewebsites.net/api/v1/produkt/update',
                     headers: {Authorization: 'Bearer ' + this.bearerToken}, 
                     data: ProduktValuesToSubmit
                 });
@@ -204,7 +204,7 @@ export default {
             {
                 axios({
                     method: 'PATCH',
-                    url: 'http://localhost:8000/api/v1/produktgruppe/update',
+                    url: 'https://examwebsite.azurewebsites.net/api/v1/produktgruppe/update',
                     headers: {Authorization: 'Bearer ' + this.bearerToken}, 
                     data: ProduktGruppeValuesToSubmit
                 });
@@ -245,7 +245,7 @@ export default {
 
                 axios({
                     method: 'DELETE',
-                    url: 'http://localhost:8000/api/v1/produkt/delete',
+                    url: 'https://examwebsite.azurewebsites.net/api/v1/produkt/delete',
                     headers: {Authorization: 'Bearer ' + this.bearerToken}, 
                     data: toDelete
                 });
@@ -253,7 +253,7 @@ export default {
             
             axios({
                     method: 'DELETE',
-                    url: 'http://localhost:8000/api/v1/produktgruppe/delete',
+                    url: 'https://examwebsite.azurewebsites.net/api/v1/produktgruppe/delete',
                     headers: {Authorization: 'Bearer ' + this.bearerToken}, 
                     data: pgID
             });
@@ -277,7 +277,7 @@ export default {
             });
             axios({
                     method: 'PATCH',
-                    url: 'http://localhost:8000/api/v1/produkt/update',
+                    url: 'https://examwebsite.azurewebsites.net/api/v1/produkt/update',
                     headers: {Authorization: 'Bearer ' + this.bearerToken}, 
                     data: FlytProdukter
             });
@@ -290,7 +290,7 @@ export default {
 
             axios({
                 method: 'DELETE',
-                url: 'http://localhost:8000/api/v1/produkt/delete',
+                url: 'https://examwebsite.azurewebsites.net/api/v1/produkt/delete',
                 headers: {Authorization: 'Bearer ' + this.bearerToken}, 
                 data: [{id:produktID}]
             });
@@ -304,7 +304,7 @@ export default {
                 firma_id: this.firma_id
             }
 
-            axios.post('http://localhost:8000/api/v1/produkt', {
+            axios.post('https://examwebsite.azurewebsites.net/api/v1/produkt', {
                 0 :produkt 
             }, 
             {
@@ -328,7 +328,7 @@ export default {
                 firma_id: this.firma_id
             }
 
-            axios.post('http://localhost:8000/api/v1/produktgruppe', {
+            axios.post('https://examwebsite.azurewebsites.net/api/v1/produktgruppe', {
                 0 :produktgruppe
             },
             {

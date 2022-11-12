@@ -44,7 +44,7 @@ export default {
         getSalgsData()
         {
             axios
-            .get('http://localhost:8000/api/v1/ordre?firma_id[eq]='+this.bruger.firma_id+'&includelinje=1')
+            .get('https://examwebsite.azurewebsites.net/api/v1/ordre?firma_id[eq]='+this.bruger.firma_id+'&includelinje=1')
             .then(response => {
                 this.ordre = response?.data
                 this.ordre.data.forEach(element => {
@@ -55,7 +55,7 @@ export default {
         },
         getEkspedienter: function() {
             axios
-            .get('http://localhost:8000/api/v1/ekspedient?firma_id[eq]='+this.bruger.firma_id)
+            .get('https://examwebsite.azurewebsites.net/api/v1/ekspedient?firma_id[eq]='+this.bruger.firma_id)
             .then(response => {
                 this.Ekspedienter = response?.data
                 this.EkspedienterLoaded = true;

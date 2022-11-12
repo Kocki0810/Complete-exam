@@ -52,7 +52,7 @@ export default {
             }
 
             this.message = "Logger ind..."
-            axios.get('http://localhost:8000/api/v1/bruger?email[eq]='+this.email+'&password[eq]='+this.password)
+            axios.get('https://examwebsite.azurewebsites.net/api/v1/bruger?email[eq]='+this.email+'&password[eq]='+this.password)
             .then((response) => {
                 this.loginResult = response?.data;
                 if(this.loginResult.data.length == 0)

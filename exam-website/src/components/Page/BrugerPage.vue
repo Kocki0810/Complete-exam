@@ -64,7 +64,7 @@ export default {
     methods: {
         getEkspedienter: function() {
             axios
-            .get('http://localhost:8000/api/v1/ekspedient?id[gt]=0&includebruger=1')
+            .get('https://examwebsite.azurewebsites.net/api/v1/ekspedient?id[gt]=0&includebruger=1')
             .then(response => (this.Ekspedienter = response?.data));
         },
         SubmitEkspedientForm: function(){
@@ -113,7 +113,7 @@ export default {
             {
                 axios({
                     method: 'PATCH',
-                    url: 'http://localhost:8000/api/v1/ekspedient/update',
+                    url: 'https://examwebsite.azurewebsites.net/api/v1/ekspedient/update',
                     headers: {Authorization: 'Bearer '+this.bearerToken}, 
                     data: EkspedientToSubmit
                 });
@@ -122,7 +122,7 @@ export default {
             {
                 axios({
                     method: 'PATCH',
-                    url: 'http://localhost:8000/api/v1/bruger/update',
+                    url: 'https://examwebsite.azurewebsites.net/api/v1/bruger/update',
                     headers: {Authorization: 'Bearer '+this.bearerToken}, 
                     data: BrugerToSubmit
                 });
@@ -130,7 +130,7 @@ export default {
             if(BrugerToCreate.brugere.length > 0)
             {
                 var brugerID = [];
-                axios.post('http://localhost:8000/api/v1/bruger', {
+                axios.post('https://examwebsite.azurewebsites.net/api/v1/bruger', {
                     data: BrugerToCreate.brugere,
                 },
                 {
@@ -155,7 +155,7 @@ export default {
 
             axios({
                 method: 'DELETE',
-                url: 'http://localhost:8000/api/v1/bruger/delete',
+                url: 'https://examwebsite.azurewebsites.net/api/v1/bruger/delete',
                 headers: {Authorization: 'Bearer '+this.bearerToken}, 
                 data: [{id: brugerID}]
             });
@@ -166,7 +166,7 @@ export default {
 
             axios({
                 method: 'DELETE',
-                url: 'http://localhost:8000/api/v1/ekspedient/delete',
+                url: 'https://examwebsite.azurewebsites.net/api/v1/ekspedient/delete',
                 headers: {Authorization: 'Bearer '+this.bearerToken}, 
                 data: [{id: ekspedientID}]
             });
@@ -215,7 +215,7 @@ export default {
                 firma_id: this.firma_id
             }
 
-            axios.post('http://localhost:8000/api/v1/ekspedient', {
+            axios.post('https://examwebsite.azurewebsites.net/api/v1/ekspedient', {
                 0 :ekspedient
             },
             {
