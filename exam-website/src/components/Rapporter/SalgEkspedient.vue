@@ -22,12 +22,12 @@ export default {
     data() {
     return {
         chartData: {
-            labels: [ 'January', 'February', 'March' ],
+            labels: [],
             datasets: [ 
             { 
                 label: 'Salg',
                 backgroundColor: '#f87979',
-                data: [40, 20, 12] 
+                data: [] 
             }]
         }
     }

@@ -21,11 +21,11 @@ namespace exam_terminal
         public string GetUrl(string table, string[] includes)
         {
             string include = includes.Aggregate("", (a, b) => a + "&include" + b.ToLower() + "=1");
-            return $"http://localhost:8000/api/v1/{table}?firma_id[eq]={DataStore.Firmaid}{include}";
+            return $"https://examwebsite.azurewebsites.net/api/v1/{table}?firma_id[eq]={DataStore.Firmaid}{include}";
         }
         public string PostUrl(string table)
         {
-            return $"http://localhost:8000/api/v1/{table}";
+            return $"https://examwebsite.azurewebsites.net/api/v1/{table}";
         }
         async public void GetProdukter()
         {

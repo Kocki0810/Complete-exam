@@ -36,7 +36,6 @@ namespace exam_terminal
         {
             DataContext = this;
             InitializeComponent();
-            Debug.WriteLine("hej");
             LV_Bonvindue.ItemsSource = bonList;
         }
         public void GetDataFromAPI()

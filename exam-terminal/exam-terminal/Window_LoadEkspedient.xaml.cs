@@ -39,6 +39,8 @@ namespace exam_terminal
             {
                 Button btn = (Button)sender;
                 MainWindow.ekspeident = DataStore.LoadEkspedientByKortnr(btn.Tag.ToString());
+                window.LB_Ekspedient_Navn.Content = "Ekspedient: " + MainWindow.ekspeident.navn;
+
             }
             catch (Exception)
             {
