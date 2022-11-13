@@ -320,7 +320,6 @@ export default {
             })
             this.NewProdukt.navn = "";
             this.NewProdukt.pris = "";
-            this.NewProdukt.produktgruppe_id = -1;
         },
         OpretProduktgruppe() {
             var produktgruppe = {
