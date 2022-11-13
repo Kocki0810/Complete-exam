@@ -138,7 +138,7 @@ export default {
         },
         getProdukter: function() {
             axios
-            .get('https://examwebsite.azurewebsites.net/api/v1/produktgruppe?id[gt]=0&includeprodukt=1', controller.signal)
+            .get('https://examwebsite.azurewebsites.net/api/v1/produktgruppe?firma_id[eq]='+this.firma_id+'&includeprodukt=1', controller.signal)
             .then(response => (this.produktgrupper = response?.data));
         },
         SubmitProduktForm: function(){

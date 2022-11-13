@@ -64,7 +64,7 @@ export default {
     methods: {
         getEkspedienter: function() {
             axios
-            .get('https://examwebsite.azurewebsites.net/api/v1/ekspedient?id[gt]=0&includebruger=1')
+            .get('https://examwebsite.azurewebsites.net/api/v1/ekspedient?firma_id[eq]='+this.firma_id+'&includebruger=1')
             .then(response => (this.Ekspedienter = response?.data));
         },
         SubmitEkspedientForm: function(){
