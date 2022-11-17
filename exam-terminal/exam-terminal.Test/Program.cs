@@ -17,7 +17,7 @@ namespace exam_terminal.Test
         {
             string workingDirectory = Environment.CurrentDirectory;
             string projectDirectory = Directory.GetParent(workingDirectory).Parent.Parent.Parent.FullName;
-            msApplication = Application.Launch(projectDirectory + @"\exam-terminal\bin\Debug\net6.0-windows\exam-terminal.exe");
+            msApplication = Application.Launch(@"C:\Program Files\Skole\Complete-exam\exam-terminal\exam-terminal\bin\Debug\net6.0-windows\exam-terminal.exe");
 
             //Program p = new Program();
             //p.TestProduktGrupperButton();
@@ -28,10 +28,11 @@ namespace exam_terminal.Test
         {
             var automation = new UIA3Automation();
             var mainWindow = msApplication.GetMainWindow(automation);
-
             ConditionFactory cf = new ConditionFactory(new UIA3PropertyLibrary());
-            Retry.WhileNull(() => mainWindow.FindFirstChild(cf.ByName("Schaden Ltd")), TimeSpan.FromSeconds(30), null, true);
-            var ProduktgruppeButton = mainWindow.FindFirstChild(cf.ByName("Schaden Ltd")).AsButton();
+            mainWindow.FindFirstChild(cf.ByName("1")).AsButton().Click();
+            mainWindow.FindFirstChild(cf.ByName("ENT")).AsButton().Click();
+            Retry.WhileNull(() => mainWindow.FindFirstChild(cf.ByName("Dessert")), TimeSpan.FromSeconds(30), null, true);
+            var ProduktgruppeButton = mainWindow.FindFirstChild(cf.ByName("Dessert")).AsButton();
             ProduktgruppeButton.Click();
             var produkter = mainWindow.FindAll(FlaUI.Core.Definitions.TreeScope.Children, cf.ByHelpText("BTN_Produkt"));
             Assert.That(produkter.Length, Is.GreaterThan(0));

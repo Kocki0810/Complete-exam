@@ -65,7 +65,7 @@
                 <Canvas Margin="1072,431,158,205">
                     <Button Tag="0" Click="BTN_Numpad_Click" Content="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="80" Width="80" Canvas.Left="95" Canvas.Top="262"/>
                     <Button Tag="C" Click="BTN_Numpad_Click" Content="C" HorizontalAlignment="Left" VerticalAlignment="Top" Height="80" Width="80" Canvas.Left="10" Canvas.Top="262"/>
-                    <Button Tag="1" Click="BTN_Numpad_Click" Content="1" HorizontalAlignment="Left" VerticalAlignment="Top" Height="80" Width="80" Canvas.Left="180" Canvas.Top="177"/>
+                    <Button Name="btn_key1" Tag="1" Click="BTN_Numpad_Click" Content="1" HorizontalAlignment="Left" VerticalAlignment="Top" Height="80" Width="80" Canvas.Left="180" Canvas.Top="177"/>
                     <Button Tag="2" Click="BTN_Numpad_Click" Content="2" HorizontalAlignment="Left" VerticalAlignment="Top" Height="80" Width="80" Canvas.Left="95" Canvas.Top="177"/>
                     <Button Tag="3" Click="BTN_Numpad_Click" Content="3" HorizontalAlignment="Left" VerticalAlignment="Top" Height="80" Width="80" Canvas.Left="10" Canvas.Top="177"/>
                     <Button Tag="4" Click="BTN_Numpad_Click" Content="4" HorizontalAlignment="Left" VerticalAlignment="Top" Height="80" Width="80" Canvas.Left="180" Canvas.Top="92"/>
